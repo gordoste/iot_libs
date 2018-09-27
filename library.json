@@ -1,0 +1,24 @@
+{
+    "name": "iot_libs",
+    "authors": [
+      {
+        "name": "Stephen Gordon",
+        "email": "gordoste@iinet.net.au"
+      }
+    ],
+    "keywords": "Arduino",
+    "description": "Various random bits of code that I might use again",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/gordoste/iot_libs.git"
+    },
+    "frameworks": "arduino",
+    "platforms": [
+      "esp8266",
+      "esp32",
+      "espressif32",
+      "espressif8266",
+      "atmelavr"
+    ]
+  }
+  
