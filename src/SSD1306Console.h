@@ -23,7 +23,7 @@ private:
   uint8_t m_displayWidth;
 };
 
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_SSD1306CONSOLE)
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_CONSOLE)
 extern SSD1306Console Console;
 #endif
 

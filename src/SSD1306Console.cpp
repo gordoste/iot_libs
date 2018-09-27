@@ -53,6 +53,6 @@ size_t SSD1306Console::write(uint8_t ch)
     return 1; // Processed 1 character
 }
 
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_SSD1306CONSOLE)
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_CONSOLE)
 SSD1306Console Console;
 #endif
