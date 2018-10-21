@@ -19,6 +19,11 @@
       "espressif32",
       "espressif8266",
       "atmelavr"
-    ]
+    ],
+    "dependencies": [
+      {
+        "name": "SSD1306Ascii"
+      }
+    ] 
   }
   
