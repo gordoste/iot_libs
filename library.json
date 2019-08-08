@@ -23,6 +23,9 @@
     "dependencies": [
       {
         "name": "SSD1306Ascii"
+      },
+      {
+        "name": "Wire"
       }
     ] 
   }
