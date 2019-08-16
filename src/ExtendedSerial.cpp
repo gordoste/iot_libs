@@ -8,6 +8,9 @@ void ExtendedSerial::begin(int speed)
 size_t ExtendedSerial::write(uint8_t ch)
 {
     Serial.write(ch);
+    if (ch == '\n') {
+        Serial.flush();
+    }
     return 1; // Processed 1 character
 }
 
