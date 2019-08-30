@@ -2,6 +2,7 @@
 #define _EXTENDEDSERIAL_H
 
 #include "PrintExt.h"
+#include "StringUtils.h"
 
 class ExtendedSerial : public PrintExt
 {
