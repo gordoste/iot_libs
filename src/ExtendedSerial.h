@@ -1,4 +1,4 @@
-#ifndef _SSD1306_CONSOLE_H
+#ifndef _EXTENDEDSERIAL_H
 #define _EXTENDEDSERIAL_H
 
 #include "PrintExt.h"
@@ -16,4 +16,4 @@ public:
 extern ExtendedSerial SerialExt;
 #endif
 
-#endif // #ifndef _SSD1306_CONSOLE_H
+#endif // #ifndef _EXTENDEDSERIAL_H
