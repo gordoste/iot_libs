@@ -4,13 +4,25 @@
 #include "PrintExt.h"
 #include "StringUtils.h"
 
+#ifdef OTA_ENABLED
+#define MAX_OTA_WAIT 500
+#include "JeVe_EasyOTA.h"
+#endif
+
 class ExtendedSerial : public PrintExt
 {
 public:
   ExtendedSerial(){};
   void begin(int speed);
   virtual size_t write(uint8_t ch);
-  uint16_t readLineWithEcho(char *buf, uint16_t bufLen, char (*readChar)() = NULL);
+
+#ifdef OTA_ENABLED
+  void setOTA(EasyOTA *ota);
+  char readWait();
+private:
+  EasyOTA *m_ota;
+#endif
+
 };
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_EXTENDEDSERIAL)
