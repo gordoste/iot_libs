@@ -10,6 +10,7 @@ public:
   ExtendedSerial(){};
   void begin(int speed);
   virtual size_t write(uint8_t ch);
+  uint16_t readLineWithEcho(char *buf, uint16_t bufLen, char (*readChar)() = NULL);
 };
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_EXTENDEDSERIAL)
