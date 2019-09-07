@@ -1,7 +1,7 @@
 #include "Menu.h"
 
-void StreamMenu::begin(char (ExtendedSerial::*inputRead)(), Print *stdOut) {
-  m_inputRead = inputRead;
+void StreamMenu::begin(ExtendedSerial *stdIn, Print *stdOut) {
+  m_stdin = stdIn;
   m_stdout = stdOut;
 }
 
@@ -18,7 +18,7 @@ int8_t StreamMenu::multiChoice(const char *choiceStrings[], uint8_t numChoices,
     if (lastChoice) m_stdout->printf("0) %s\n", lastChoice);
     m_stdout->println(F("X) Cancel."));
     m_stdout->printf("> ");
-    char c = ((SerialExt).*(m_inputRead))();
+    char c = m_stdin->timedRead();
     m_stdout->println(c);
     if (c == 'x' || c == 'X') return -1;
     if (c == '0' && lastChoice != NULL) return 0;
@@ -42,7 +42,7 @@ char StreamMenu::multiChoice(const char *choiceStrings[], const char *choices, c
     }
     m_stdout->println(F("X) Cancel."));
     m_stdout->printf("< ");
-    char c = ((SerialExt).*(m_inputRead))();
+    char c = m_stdin->timedRead();
     m_stdout->println(c);
     if (c == 'x' || c == 'X') return -1;
     if (strchr(choices, c)) return c; // Check if character is a valid selection

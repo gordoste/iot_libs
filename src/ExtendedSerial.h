@@ -18,7 +18,7 @@ public:
 
 #ifdef OTA_ENABLED
   void setOTA(EasyOTA *ota);
-  char readWait();
+  char timedRead();
 private:
   EasyOTA *m_ota;
 #endif
