@@ -20,7 +20,7 @@ class StreamMenu : public Menu {
     int8_t multiChoice(const char *choices[], uint8_t numChoices, int8_t selectedChoice = -1, const char *lastChoice = NULL);
     // Return selected choice. -1 on error (or user cancelled).
     char multiChoice(const char *choiceStrings[], const char *choices, char selectedChoice = '\0');
-  private:
+  protected:
     ExtendedSerial *m_stdin;
     Print *m_stdout;
 };
@@ -36,7 +36,7 @@ class TFTMenu : public Menu {
     int8_t multiChoice(const char *choices[], uint8_t numChoices, int8_t selectedChoice = -1, const char *lastChoice = NULL);
     // Return selected choice. -1 on error (or user cancelled).
     char multiChoice(const char *choiceStrings[], const char *choices, char selectedChoice = '\0');
-  private:
+  protected:
     TFT_eSPI *m_tft;
 };
 

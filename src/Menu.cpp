@@ -41,7 +41,7 @@ char StreamMenu::multiChoice(const char *choiceStrings[], const char *choices, c
       m_stdout->println();
     }
     m_stdout->println(F("X) Cancel."));
-    m_stdout->printf("< ");
+    m_stdout->printf("> ");
     char c = m_stdin->timedRead();
     m_stdout->println(c);
     if (c == 'x' || c == 'X') return -1;
