@@ -1,5 +1,7 @@
 #include "TFTPrintExt.h"
 
+#ifdef TFT_ENABLED
+
 void TFTPrintExt::begin(TFT_eSPI *tft)
 {
     m_tft = tft;
@@ -22,4 +24,6 @@ size_t TFTPrintExt::write(uint8_t ch)
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_EXTENDEDSERIAL)
 TFTPrintExt TFTExt;
+#endif
+
 #endif

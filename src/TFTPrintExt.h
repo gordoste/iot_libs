@@ -1,6 +1,8 @@
 #ifndef _TFTPRINTEXT_H
 #define _TFTPRINTEXT_H
 
+#ifdef TFT_ENABLED
+
 #include "PrintExt.h"
 #include "TFT_eSPI.h"
 
@@ -18,4 +20,7 @@ private:
 extern TFTPrintExt TFTExt;
 #endif
 
+#endif // #ifdef TFT_ENABLED
+
 #endif // #ifndef _TFTPRINTEXT_H
+

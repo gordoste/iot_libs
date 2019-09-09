@@ -70,14 +70,6 @@ char TFTMenu::multiChoice(const char *choiceStrings[], const char *choices, char
   return choices[r];
 }
 
-
-void TFTMenu::drawBorderRect(Window win, uint32_t borderColor, uint32_t fillColor, uint8_t borderWidth /*= 1*/) {
-  for (int i = 0; i < borderWidth; i++) {
-    m_tft->drawRect(win.x+i, win.y+i, win.width-(2*i), win.height-(2*i), borderColor);
-  }
-  m_tft->fillRect(win.x+borderWidth, win.y+borderWidth, win.width-2*borderWidth, win.height-2*borderWidth, fillColor);
-}
-
 int8_t TFTMenu::selectGrid(Window win, int32_t xDivs, int32_t yDivs, uint8_t numChoices, TCellLabel_Getter labelGetter,
   const uint32_t colourCombos[], uint8_t numColourCombos, uint32_t borderColor, uint8_t borderWidth) {
     uint32_t divX = win.width/xDivs; // size of each cell
@@ -90,7 +82,7 @@ int8_t TFTMenu::selectGrid(Window win, int32_t xDivs, int32_t yDivs, uint8_t num
       cell.y = win.y + currentDiv[1] * divY;
       cell.width = currentDiv[0] == xDivs-1 ? win.width - (divX * currentDiv[0]) : divX;   // if last cell in row, use remaining pixels
       cell.height = currentDiv[1] == yDivs-1 ? win.height - (divY * currentDiv[1]) : divY; // if last row in grid, use remaining pixels
-      drawBorderRect(cell, TFT_WHITE, colourCombos[2*currentColourCombo]);
+      TFTUtils::drawBorderRect(m_tft, cell, TFT_WHITE, colourCombos[2*currentColourCombo]);
       const char *label;
       if (labelGetter != NULL) {
         label = labelGetter(currentDiv[0] + currentDiv[1]*xDivs);
