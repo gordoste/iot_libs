@@ -2,6 +2,10 @@
 
 void StreamMenu::begin(ExtendedSerial *stdIn, Print *stdOut) {
   m_stdin = stdIn;
+  setOutputStream(stdOut);
+}
+
+void StreamMenu::setOutputStream(Print *stdOut) {
   m_stdout = stdOut;
 }
 
