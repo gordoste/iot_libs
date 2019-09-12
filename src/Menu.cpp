@@ -62,12 +62,21 @@ void TFTMenu::begin(TFT_eSPI *tft) { m_tft = tft; }
 // Return number (1-9) of selected choice, or 0 for lastChoice. -1 on error (or user cancelled).
 int8_t TFTMenu::multiChoice(const char *choices[], uint8_t numChoices,
   int8_t selectedChoice /*= -1*/, const char *lastChoice /*= NULL*/) {
+  uint8_t size = sqrt(numChoices)+1; // round up square root to find grid size
+  Window win = { 0, 0, m_tft->width(), m_tft->height()-100 };
+  const char *allChoices[10];
+  for (uint8_t i = 0; i < numChoices; i++) allChoices[i] = choices[i];
+  if (lastChoice) { allChoices[numChoices++] = lastChoice; }
+  int8_t choice = selectGrid(win, size, size, numChoices, menuColourCombos, NUM_COMBOS, TFT_WHITE, 1, allChoices);
+  // selectGrid returns zero-based cell number
+  if (choice == numChoices-1) return 0; // check if lastChoice was selected
+  return choice+1; // if not, return the 1-based choice number
 }
 
 // Return selected choice. -1 on error (or user cancelled).
 char TFTMenu::multiChoice(const char *choiceStrings[], const char *choices, char selectedChoice /*= '\0'*/) {
   uint8_t numChoices = strlen(choices);
-  uint8_t size = sqrt(numChoices)+1;
+  uint8_t size = sqrt(numChoices)+1; // round up square root to find grid size
   Window win = { 0, 0, m_tft->width(), m_tft->height()-100 };
   int8_t r = selectGrid(win, size, size, numChoices, menuColourCombos, NUM_COMBOS, TFT_WHITE, 1, choiceStrings);
   if (r == -1) return -1;
@@ -108,9 +117,9 @@ int8_t TFTMenu::selectGrid(Window win, int32_t xDivs, int32_t yDivs, uint8_t num
       while (touchX < win.x + currentDiv[0]*divX || touchX >= win.x + ++currentDiv[0]*divX) {} // Find the col AFTER the one touched
       while (touchY < win.y + currentDiv[1]*divY || touchY >= win.y + ++currentDiv[1]*divY) {} // Find the row AFTER the one touched
       currentDiv[0]--; currentDiv[1]--; // Find the cell touched
-      if (currentDiv[0] == xDivs || currentDiv[1] == yDivs) return -1;
       cellSelected = currentDiv[0] + currentDiv[1]*xDivs;
     }
+    m_tft->fillScreen(TFT_BLACK);
     return cellSelected;
 }
 
