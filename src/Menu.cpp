@@ -1,6 +1,7 @@
 #include "Menu.h"
 
-void StreamMenu::begin(ExtendedSerial *stdIn, Print *stdOut) {
+void StreamMenu::begin(BasicLog *log, ExtendedSerial *stdIn, Print *stdOut) {
+  m_log = log;
   m_stdin = stdIn;
   setOutputStream(stdOut);
 }
@@ -57,7 +58,8 @@ char StreamMenu::multiChoice(const char *choiceStrings[], const char *choices, c
   return -1;
 }
 
-void TFTMenu::begin(TFT_eSPI *tft, Window *w) {
+void TFTMenu::begin(BasicLog *log, TFT_eSPI *tft, Window *w) {
+  m_log = log;
   m_tft = tft;
   m_win = w;
 }
@@ -85,16 +87,19 @@ char TFTMenu::multiChoice(const char *choiceStrings[], const char *choices, char
 
 int8_t TFTMenu::selectGrid(int32_t xDivs, int32_t yDivs, uint8_t numChoices, TCellLabel_Getter labelGetter,
   const uint32_t colourCombos[], uint8_t numColourCombos, LineProperties borderProps) {
+    m_log->debug2("selectGrid() enter");
     uint32_t divX = m_win->width/xDivs; // size of each cell
     uint32_t divY = m_win->height/yDivs;
     uint8_t currentDiv[2] = { 0, 0 }; // which cell are we drawing
     uint8_t currentColourCombo = 0;
     Window cell;
+    m_log->debug3("begin-%d:%d:%d:%d",m_win->x,m_win->y,m_win->width,m_win->height);
     while (currentDiv[0] < xDivs && currentDiv[1] < yDivs && (currentDiv[0] + currentDiv[1]*xDivs) < numChoices) {
       cell.x = m_win->x + currentDiv[0] * divX;
       cell.y = m_win->y + currentDiv[1] * divY;
       cell.width = currentDiv[0] == xDivs-1 ? m_win->width - (divX * currentDiv[0]) : divX;   // if last cell in row, use remaining pixels
       cell.height = currentDiv[1] == yDivs-1 ? m_win->height - (divY * currentDiv[1]) : divY; // if last row in grid, use remaining pixels
+      m_log->debug2("dBR cell-%d:%d:%d:%d",cell.x,cell.y,cell.width,cell.height);
       TFTUtils::drawBorderRect(m_tft, cell, TFT_WHITE, colourCombos[2*currentColourCombo]);
       const char *label;
       if (labelGetter != NULL) {
@@ -120,6 +125,7 @@ int8_t TFTMenu::selectGrid(int32_t xDivs, int32_t yDivs, uint8_t numChoices, TCe
       cellSelected = currentDiv[0] + currentDiv[1]*xDivs;
     }
     m_tft->fillScreen(TFT_BLACK);
+    m_log->debug2("selectGrid() leave");
     return cellSelected;
 }
 
