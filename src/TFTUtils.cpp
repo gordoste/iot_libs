@@ -11,11 +11,6 @@ void TFTUtils::touchCalibrate(TFT_eSPI *tft, const char *calFileName, bool force
   uint16_t calData[5];
   uint8_t calDataOK = 0;
 
-  tft->fillScreen(TFT_BLACK);
-  tft->setTextColor(TFT_WHITE, TFT_BLACK);
-  tft->setTextSize(1);
-  tft->setCursor(20, 0, 2);
-
   // check if calibration file exists
   if (SPIFFS.exists(calFileName)) {
     File f = SPIFFS.open(calFileName, "r");
@@ -31,6 +26,10 @@ void TFTUtils::touchCalibrate(TFT_eSPI *tft, const char *calFileName, bool force
     // calibration data valid
     tft->setTouch(calData);
   } else {
+    tft->fillScreen(TFT_BLACK);
+    tft->setTextColor(TFT_WHITE, TFT_BLACK);
+    tft->setTextSize(1);
+    tft->setCursor(20, 0, 2);
     tft->println("calibration run");
     // data not valid. recalibrate
     tft->calibrateTouch(calData, TFT_MAGENTA, TFT_BLACK, 15);
