@@ -14,6 +14,11 @@ struct Window {
   int16_t height;
 };
 
+struct LineProperties {
+  uint32_t color;
+  uint8_t width;
+};
+
 namespace TFTUtils {
   void drawBorderRect(TFT_eSPI *tft, Window win, uint32_t borderColor, uint32_t fillColor, uint8_t borderWidth = 1);
   // Read calibration data from file given, or calibrate and then save it there

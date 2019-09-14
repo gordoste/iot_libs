@@ -64,10 +64,9 @@ int8_t TFTMenu::multiChoice(const char *choices[], uint8_t numChoices,
   int8_t selectedChoice /*= -1*/, const char *lastChoice /*= NULL*/) {
   uint8_t size = sqrt(numChoices)+1; // round up square root to find grid size
   Window win = { 0, 0, m_tft->width(), m_tft->height()-100 };
-  const char *allChoices[10];
   for (uint8_t i = 0; i < numChoices; i++) allChoices[i] = choices[i];
   if (lastChoice) { allChoices[numChoices++] = lastChoice; }
-  int8_t choice = selectGrid(win, size, size, numChoices, menuColourCombos, NUM_COMBOS, TFT_WHITE, 1, allChoices);
+  int8_t choice = selectGrid(win, size, size, numChoices, menuColourCombos, NUM_COMBOS, DefaultBorder, allChoices);
   // selectGrid returns zero-based cell number
   if (choice == numChoices-1) return 0; // check if lastChoice was selected
   return choice+1; // if not, return the 1-based choice number
@@ -78,13 +77,13 @@ char TFTMenu::multiChoice(const char *choiceStrings[], const char *choices, char
   uint8_t numChoices = strlen(choices);
   uint8_t size = sqrt(numChoices)+1; // round up square root to find grid size
   Window win = { 0, 0, m_tft->width(), m_tft->height()-100 };
-  int8_t r = selectGrid(win, size, size, numChoices, menuColourCombos, NUM_COMBOS, TFT_WHITE, 1, choiceStrings);
+  int8_t r = selectGrid(win, size, size, numChoices, menuColourCombos, NUM_COMBOS, DefaultBorder, choiceStrings);
   if (r == -1) return -1;
   return choices[r];
 }
 
 int8_t TFTMenu::selectGrid(Window win, int32_t xDivs, int32_t yDivs, uint8_t numChoices, TCellLabel_Getter labelGetter,
-  const uint32_t colourCombos[], uint8_t numColourCombos, uint32_t borderColor, uint8_t borderWidth) {
+  const uint32_t colourCombos[], uint8_t numColourCombos, LineProperties borderProps) {
     uint32_t divX = win.width/xDivs; // size of each cell
     uint32_t divY = win.height/yDivs;
     uint8_t currentDiv[2] = { 0, 0 }; // which cell are we drawing
@@ -124,15 +123,15 @@ int8_t TFTMenu::selectGrid(Window win, int32_t xDivs, int32_t yDivs, uint8_t num
 }
 
 int8_t TFTMenu::selectGrid(Window win, int32_t xDivs, int32_t yDivs, uint8_t numChoices,
-  const uint32_t colourCombos[], uint8_t numColourCombos, uint32_t borderColor, uint8_t borderWidth,
+  const uint32_t colourCombos[], uint8_t numColourCombos, LineProperties borderProps,
   const char *cellLabels[]) {
     if (cellLabels != NULL) {
       m_cellLabels = cellLabels;
       return selectGrid(win,xDivs,yDivs,numChoices,[this](uint8_t i){return m_cellLabels[i];},
-        colourCombos,numColourCombos,borderColor,borderWidth);//this->getCellLabel);
+        colourCombos,numColourCombos,borderProps);
     }
     else {
       return selectGrid(win,xDivs,yDivs,numChoices,[this](uint8_t i){return (const char *)NULL;},
-        colourCombos,numColourCombos,borderColor,borderWidth);
+        colourCombos,numColourCombos,borderProps);
     }
 }

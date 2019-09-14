@@ -28,6 +28,8 @@ class StreamMenu : public Menu {
 
 #ifdef TFT_ENABLED
 
+#define MAX_CHOICES 20
+
 #include "TFT_eSPI.h"
 #include "TFTUtils.h"
 
@@ -44,6 +46,8 @@ const uint32_t menuColourCombos[2*NUM_COMBOS] = {
   TFT_DARKGREEN,    TFT_WHITE,
 };
 
+const LineProperties DefaultBorder = { TFT_WHITE, 1 };
+
 class TFTMenu : public Menu {
   public:
     void begin(TFT_eSPI *tft);
@@ -52,13 +56,14 @@ class TFTMenu : public Menu {
     // Return selected choice. -1 on error (or user cancelled).
     char multiChoice(const char *choiceStrings[], const char *choices, char selectedChoice = '\0');
     int8_t selectGrid(Window win, int32_t xDivs, int32_t yDivs, uint8_t numChoices, TCellLabel_Getter labelGetter,
-      const uint32_t colourCombos[], uint8_t numColourCombos, uint32_t borderColor = TFT_WHITE, uint8_t borderWidth = 1);
+      const uint32_t colourCombos[], uint8_t numColourCombos, LineProperties borderProps = DefaultBorder);
     int8_t selectGrid(Window win, int32_t xDivs, int32_t yDivs, uint8_t numChoices,
-      const uint32_t colourCombos[], uint8_t numColourCombos, uint32_t borderColor = TFT_WHITE, uint8_t borderWidth = 1,
+      const uint32_t colourCombos[], uint8_t numColourCombos, LineProperties borderProps = DefaultBorder,
       const char *cellLabels[] = NULL);
   protected:
     TFT_eSPI *m_tft;
     const char **m_cellLabels;
+    const char *allChoices[MAX_CHOICES];
 };
 
 #endif //#ifdef TFT_ENABLED
