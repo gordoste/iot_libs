@@ -106,6 +106,7 @@ int8_t TFTMenu::selectGrid(int32_t xDivs, int32_t yDivs, uint8_t numChoices, TCe
         label = labelGetter(currentDiv[0] + currentDiv[1]*xDivs);
         if (label != NULL) {
           m_tft->setCursor(m_win->x + currentDiv[0]*divX + 2, m_win->y + currentDiv[1]*divY + 2);
+          m_tft->setTextFont(1);
           m_tft->setTextColor(colourCombos[2*currentColourCombo + 1]);
           m_tft->printf(label);
         }

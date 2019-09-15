@@ -1,5 +1,9 @@
 #include "TFTUtils.h"
 
+void TFTUtils::fillWindow(TFT_eSPI *tft, Window win, uint32_t fillColor) {
+  tft->fillRect(win.x, win.y, win.width, win.height, fillColor);
+}
+
 void TFTUtils::drawBorderRect(TFT_eSPI *tft, Window win, uint32_t borderColor, uint32_t fillColor, uint8_t borderWidth /*= 1*/) {
   for (int i = 0; i < borderWidth; i++) {
     tft->drawRect(win.x+i, win.y+i, win.width-(2*i), win.height-(2*i), borderColor);
