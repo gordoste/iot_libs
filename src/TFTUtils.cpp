@@ -4,11 +4,12 @@ void TFTUtils::fillWindow(TFT_eSPI *tft, Window win, uint32_t fillColor) {
   tft->fillRect(win.x, win.y, win.width, win.height, fillColor);
 }
 
-void TFTUtils::drawBorderRect(TFT_eSPI *tft, Window win, uint32_t borderColor, uint32_t fillColor, uint8_t borderWidth /*= 1*/) {
-  for (int i = 0; i < borderWidth; i++) {
-    tft->drawRect(win.x+i, win.y+i, win.width-(2*i), win.height-(2*i), borderColor);
+void TFTUtils::drawBorderRect(TFT_eSPI *tft, Window win, uint32_t fillColor, LineProperties borderProps) {
+  for (int i = 0; i < borderProps.width; i++) {
+    tft->drawRect(win.x+i, win.y+i, win.width-(2*i), win.height-(2*i), borderProps.color);
   }
-  tft->fillRect(win.x+borderWidth, win.y+borderWidth, win.width-2*borderWidth, win.height-2*borderWidth, fillColor);
+  tft->fillRect(win.x + borderProps.width, win.y + borderProps.width,
+    win.width - (2*borderProps.width), win.height - (2*borderProps.width), fillColor);
 }
 
 void TFTUtils::touchCalibrate(TFT_eSPI *tft, const char *calFileName, bool forceCalibrate) {

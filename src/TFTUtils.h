@@ -28,7 +28,7 @@ const LineProperties DefaultBorder = { TFT_WHITE, 1 };
 
 namespace TFTUtils {
   void fillWindow(TFT_eSPI *tft, Window win, uint32_t fillColor);
-  void drawBorderRect(TFT_eSPI *tft, Window win, uint32_t borderColor, uint32_t fillColor, uint8_t borderWidth = 1);
+  void drawBorderRect(TFT_eSPI *tft, Window win, uint32_t fillColor, LineProperties borderProps = DefaultBorder);
   // Read calibration data from file given, or calibrate and then save it there
   void touchCalibrate(TFT_eSPI *tft, const char *calFileName, bool forceCalibrate = false);
 };
