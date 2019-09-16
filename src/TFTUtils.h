@@ -7,6 +7,11 @@
 
 #ifdef TFT_ENABLED
 
+struct Point {
+  uint32_t x;
+  uint32_t y;
+};
+
 struct Window {
   uint32_t x;
   uint32_t y;
@@ -18,6 +23,8 @@ struct LineProperties {
   uint32_t color;
   uint8_t width;
 };
+
+const LineProperties DefaultBorder = { TFT_WHITE, 1 };
 
 namespace TFTUtils {
   void fillWindow(TFT_eSPI *tft, Window win, uint32_t fillColor);

@@ -49,8 +49,6 @@ const uint32_t menuColourCombos[2*NUM_COMBOS] = {
   TFT_DARKGREEN,    TFT_WHITE,
 };
 
-const LineProperties DefaultBorder = { TFT_WHITE, 1 };
-
 class TFTMenu : public Menu {
   public:
     void begin(BasicLog *log, TFT_eSPI *tft, Window *win);
