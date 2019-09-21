@@ -26,6 +26,8 @@ struct LineProperties {
 
 const LineProperties DefaultBorder = { TFT_WHITE, 1 };
 
+typedef std::function<void(TFT_eSPI *tft)> TFTHandler;
+
 namespace TFTUtils {
   void fillWindow(TFT_eSPI *tft, Window win, uint32_t fillColor);
   void drawBorderRect(TFT_eSPI *tft, Window win, uint32_t fillColor, LineProperties borderProps = DefaultBorder);
