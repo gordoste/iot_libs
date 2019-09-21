@@ -67,7 +67,7 @@ void TFTMenu::begin(BasicLog *log, TFT_eSPI *tft, Window *w) {
 // Return number (1-9) of selected choice, or 0 for lastChoice. -1 on error (or user cancelled).
 int8_t TFTMenu::multiChoice(const char *choices[], uint8_t numChoices,
   int8_t selectedChoice /*= -1*/, const char *lastChoice /*= NULL*/) {
-  m_log->debug3("menuChoice(*,%d,%d,%s)", numChoices, selectedChoice, lastChoice);
+  m_log->debug3(F("menuChoice(*,%d,%d,%s)"), numChoices, selectedChoice, lastChoice == NULL ? "" : lastChoice);
   uint8_t size = sqrt(numChoices)+1; // round up square root to find grid size
   for (uint8_t i = 0; i < numChoices; i++) m_allChoices[i] = choices[i];
   if (lastChoice) { m_allChoices[numChoices++] = lastChoice; }
@@ -79,7 +79,7 @@ int8_t TFTMenu::multiChoice(const char *choices[], uint8_t numChoices,
 
 // Return selected choice. -1 on error (or user cancelled).
 char TFTMenu::multiChoice(const char *choiceStrings[], const char *choices, char selectedChoice /*= '\0'*/) {
-  m_log->debug3("menuChoice(*,%s,%c)", choices, selectedChoice);
+  m_log->debug3(F("menuChoice(*,%s,%c)"), choices, selectedChoice);
   uint8_t numChoices = strlen(choices);
   uint8_t size = sqrt(numChoices)+1; // round up square root to find grid size
   int8_t selNum = -1;
@@ -95,20 +95,20 @@ char TFTMenu::multiChoice(const char *choiceStrings[], const char *choices, char
 int8_t TFTMenu::selectGrid(int32_t xDivs, int32_t yDivs, uint8_t numChoices, int8_t selectedChoice,
   TCellLabel_Getter labelGetter,
   const uint32_t colourCombos[], uint8_t numColourCombos, LineProperties borderProps) {
-    m_log->debug2("selectGrid() enter");
+    m_log->debug2(F("selectGrid() enter"));
     uint32_t divX = m_win->width/xDivs; // size of each cell
     uint32_t divY = m_win->height/yDivs;
     uint8_t currentDiv[2] = { 0, 0 }; // which cell are we drawing
     uint8_t currentColourCombo = 0;
     Window cell;
     uint8_t cellNum = 0;
-    m_log->debug3("begin-%d:%d:%d:%d",m_win->x,m_win->y,m_win->width,m_win->height);
+    m_log->debug3(F("sG_begin-%d:%d:%d:%d"),m_win->x,m_win->y,m_win->width,m_win->height);
     while (currentDiv[0] < xDivs && currentDiv[1] < yDivs && cellNum < numChoices) {
       cell.x = m_win->x + currentDiv[0] * divX;
       cell.y = m_win->y + currentDiv[1] * divY;
       cell.width = currentDiv[0] == xDivs-1 ? m_win->width - (divX * currentDiv[0]) : divX;   // if last cell in row, use remaining pixels
       cell.height = currentDiv[1] == yDivs-1 ? m_win->height - (divY * currentDiv[1]) : divY; // if last row in grid, use remaining pixels
-      m_log->debug2("dBR cell #%d - %d:%d:%d:%d",cellNum,cell.x,cell.y,cell.width,cell.height);
+      m_log->debug2(F("sG_cell%d - %d:%d:%d:%d"),cellNum,cell.x,cell.y,cell.width,cell.height);
       if (cellNum == selectedChoice) {
         TFTUtils::drawBorderRect(m_tft, cell, colourCombos[2*currentColourCombo], { TFT_RED, 3 });
       }
@@ -119,10 +119,10 @@ int8_t TFTMenu::selectGrid(int32_t xDivs, int32_t yDivs, uint8_t numChoices, int
       if (labelGetter != NULL) {
         label = labelGetter(currentDiv[0] + currentDiv[1]*xDivs);
         if (label != NULL) {
-          m_tft->setCursor(m_win->x + currentDiv[0]*divX + 2, m_win->y + currentDiv[1]*divY + 2);
-          m_tft->setTextFont(1);
+          if (m_onCellLabelPrint != NULL) { m_onCellLabelPrint(m_tft); }
+          m_tft->setTextDatum(MC_DATUM);
           m_tft->setTextColor(colourCombos[2*currentColourCombo + 1]);
-          m_tft->printf(label);
+          m_tft->drawString(label, cell.x + (cell.width/2), cell.y + (cell.height/2));
         }
       }
       currentColourCombo++; currentColourCombo %= numColourCombos;
@@ -141,7 +141,7 @@ int8_t TFTMenu::selectGrid(int32_t xDivs, int32_t yDivs, uint8_t numChoices, int
       cellSelected = currentDiv[0] + currentDiv[1]*xDivs;
     }
     m_tft->fillScreen(TFT_BLACK);
-    m_log->debug2("selectGrid() leave");
+    m_log->debug2(F("selectGrid() leave"));
     return cellSelected;
 }
 

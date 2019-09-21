@@ -52,6 +52,7 @@ const uint32_t menuColourCombos[2*NUM_COMBOS] = {
 class TFTMenu : public Menu {
   public:
     void begin(BasicLog *log, TFT_eSPI *tft, Window *win);
+    void onCellLabelPrint(TFTHandler fn) { m_onCellLabelPrint = fn; };
 
     // Return number (1-9) of selected choice, or 0 for lastChoice. -1 on error (or user cancelled).
     int8_t multiChoice(const char *choices[], uint8_t numChoices, int8_t selectedChoice = -1, const char *lastChoice = NULL);
@@ -70,6 +71,7 @@ class TFTMenu : public Menu {
   protected:
     TFT_eSPI *m_tft;
     Window *m_win;
+    TFTHandler m_onCellLabelPrint = NULL;
     const char **m_cellLabels;
     const char *m_allChoices[MAX_CHOICES];
 };
