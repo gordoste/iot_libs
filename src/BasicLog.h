@@ -25,6 +25,14 @@ public:
   void error(const char *fmt, ...);
   void useLogLabels(bool enable);
 
+#ifdef F // check to see if F() macro is available
+  void debug3(const __FlashStringHelper *fmt, ...);
+  void debug2(const __FlashStringHelper *fmt, ...);
+  void debug(const __FlashStringHelper *fmt, ...);
+  void log(const __FlashStringHelper *fmt, ...);
+  void error(const __FlashStringHelper *fmt, ...);
+#endif
+
 private:
   PrintExt *m_dest;
   LogLevel m_logLvl = LOG_LOG;
