@@ -10,9 +10,8 @@ void StreamMenu::setOutputStream(Print *stdOut) {
   m_stdout = stdOut;
 }
 
-// Return number (1-9) of selected choice, or 0 for lastChoice. -1 on error (or user cancelled).
-int8_t StreamMenu::multiChoice(const char *choiceStrings[], uint8_t numChoices,
-  int8_t selectedChoice /* = -1 */, const char *lastChoice /* = NULL */) {
+// Return number (0-9) of selected choice. -1 on error (or user cancelled).
+int8_t StreamMenu::multiChoice(const char *choiceStrings[], uint8_t numChoices, int8_t selectedChoice /* = -1 */) {
   if (numChoices > 9) return -1; // Too many
   while (1) {
     for (uint8_t i = 0; i < numChoices; i++) {
@@ -20,15 +19,13 @@ int8_t StreamMenu::multiChoice(const char *choiceStrings[], uint8_t numChoices,
       if (i == selectedChoice) m_stdout->print("    <<< SELECTED");
       m_stdout->println();
     }
-    if (lastChoice) m_stdout->printf("0) %s\n", lastChoice);
     m_stdout->println(F("X) Cancel."));
     m_stdout->printf("> ");
     char c = m_stdin->timedRead();
     m_stdout->println(c);
     if (c == 'x' || c == 'X') return -1;
-    if (c == '0' && lastChoice != NULL) return 0;
-    if (c >= '1' && c <='9') {  // A number 
-      c -= '0'; // convert ASCII character to int (i.e. '1' => 1, '2' => 2 ...) 
+    if (c >= '0' && c <='9') {  // A number 
+      c -= '0'; // convert ASCII character to int (i.e. '0' => 0, '1' => 1 ...) 
       if (c <= numChoices) return c;
     }
     m_stdout->println(F("Invalid selection."));
@@ -64,17 +61,11 @@ void TFTMenu::begin(BasicLog *log, TFT_eSPI *tft, Window *w) {
   m_win = w;
 }
 
-// Return number (1-9) of selected choice, or 0 for lastChoice. -1 on error (or user cancelled).
-int8_t TFTMenu::multiChoice(const char *choices[], uint8_t numChoices,
-  int8_t selectedChoice /*= -1*/, const char *lastChoice /*= NULL*/) {
-  m_log->debug3("menuChoice(*,%d,%d,%s)", numChoices, selectedChoice, lastChoice == NULL ? "" : lastChoice);
+// Return number (0-9) of selected choice. -1 on error (or user cancelled).
+int8_t TFTMenu::multiChoice(const char *choices[], uint8_t numChoices, int8_t selectedChoice /*= -1*/) {
+  m_log->debug3("menuChoice(*,%d,%d)", numChoices, selectedChoice);
   uint8_t size = sqrt(numChoices)+1; // round up square root to find grid size
-  for (uint8_t i = 0; i < numChoices; i++) m_allChoices[i] = choices[i];
-  if (lastChoice) { m_allChoices[numChoices++] = lastChoice; }
-  int8_t choice = selectGrid(size, size, numChoices, selectedChoice, m_allChoices);
-  // selectGrid returns zero-based cell number
-  if (choice == numChoices-1) return 0; // check if lastChoice was selected
-  return choice+1; // if not, return the 1-based choice number
+  return selectGrid(size, size, numChoices, selectedChoice, choices);
 }
 
 // Return selected choice. -1 on error (or user cancelled).
@@ -95,7 +86,7 @@ char TFTMenu::multiChoice(const char *choiceStrings[], const char *choices, char
 int8_t TFTMenu::selectGrid(int32_t xDivs, int32_t yDivs, uint8_t numChoices, int8_t selectedChoice,
   TCellLabel_Getter labelGetter,
   const uint32_t colourCombos[], uint8_t numColourCombos, LineProperties borderProps) {
-    m_log->debug2(F("selectGrid() enter"));
+    m_log->debug2("selectGrid() %d:%d:%d:%d:%d:%d", xDivs, yDivs, numChoices, selectedChoice, numColourCombos, borderProps.width);
     uint32_t divX = m_win->width/xDivs; // size of each cell
     uint32_t divY = m_win->height/yDivs;
     uint8_t currentDiv[2] = { 0, 0 }; // which cell are we drawing
