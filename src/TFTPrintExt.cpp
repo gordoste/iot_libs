@@ -17,6 +17,8 @@ void TFTPrintExt::clear() {
     m_cursor = { m_tft->getCursorX(), m_tft->getCursorY() };
 }
 
+Point &TFTPrintExt::getCursor() { return m_cursor; }
+
 void TFTPrintExt::setFillColor(uint32_t fillColor) { m_fillColor = fillColor; }
 void TFTPrintExt::setTextColor(uint32_t textColor) { m_textColor = textColor; }
 

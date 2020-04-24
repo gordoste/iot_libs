@@ -13,6 +13,7 @@ class TFTPrintExt : public PrintExt
     TFTPrintExt(){};
     void begin(TFT_eSPI *tft, Window *win = NULL);
     void clear();
+    Point &getCursor();
     void setFillColor(uint32_t fillColor);
     void setTextColor(uint32_t textColor);
     void onWrite(TFTHandler fn) { onWriteFn = fn; };

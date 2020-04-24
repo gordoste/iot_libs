@@ -21,6 +21,12 @@ char* StringUtils::strtoke(char *str, const char *delim)
   return token;
 }
 
+void StringUtils::strrepl(char *str, char find, char repl) {
+  for (uint8_t i = 0; i < strlen(str); i++) {
+    if (str[i] == find) str[i] = repl;
+  }
+}
+
 
 // ****** UTF8-Decoder: convert UTF8-string to extended ASCII *******
 // Convert a single Character from UTF8 to Extended ASCII

@@ -8,6 +8,7 @@
 
 namespace StringUtils {
     char* strtoke(char *str, const char *delim);
+    void strrepl(char *str, char find, char repl);
     uint8_t utf8ascii(uint8_t ascii);
     char serialRead();
 }
