@@ -36,7 +36,7 @@ class StreamMenu : public Menu {
 #include "TFT_eSPI.h"
 #include "TFTUtils.h"
 
-typedef std::function<const char *(uint8_t cell_nr)> TCellLabel_Getter;
+typedef std::function<const char *(uint8_t cell_nr)> TLabel_Getter;
 
 #define NUM_COMBOS 6
 const uint32_t menuColourCombos[2*NUM_COMBOS] = {
@@ -50,6 +50,7 @@ const uint32_t menuColourCombos[2*NUM_COMBOS] = {
 };
 
 class TFTMenu : public Menu {
+  
   public:
     void begin(BasicLog *log, TFT_eSPI *tft, Window *win);
     void onCellLabelPrint(TFTHandler fn) { m_onCellLabelPrint = fn; };
@@ -60,7 +61,7 @@ class TFTMenu : public Menu {
     char multiChoice(const char *choiceStrings[], const char *choices, char selectedChoice = '\0');
 
     int8_t selectGrid(int32_t xDivs, int32_t yDivs, uint8_t numChoices, int8_t selectedChoice = -1,
-      TCellLabel_Getter labelGetter = NULL,
+      TLabel_Getter labelGetter = NULL,
       const uint32_t colourCombos[] = menuColourCombos, uint8_t numColourCombos = NUM_COMBOS,
       LineProperties borderProps = DefaultBorder);
 
@@ -68,12 +69,14 @@ class TFTMenu : public Menu {
       const char *cellLabels[] = NULL, 
       const uint32_t colourCombos[] = menuColourCombos, uint8_t numColourCombos = NUM_COMBOS,
       LineProperties borderProps = DefaultBorder);
+
   protected:
     TFT_eSPI *m_tft;
     Window *m_win;
     TFTHandler m_onCellLabelPrint = NULL;
     const char **m_cellLabels;
     const char *m_allChoices[MAX_CHOICES];
+    uint32_t divX, divY;
 };
 
 #endif //#ifdef TFT_ENABLED
