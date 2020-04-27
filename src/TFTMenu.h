@@ -1,35 +1,10 @@
-#ifndef _MENU_H
-#define _MENU_H
+#ifndef _TFTMENU_H
+#define _TFTMENU_H
 
 #include <Arduino.h>
 #include "ExtendedSerial.h"
 #include "BasicLog.h"
 #include "StringUtils.h"
-
-class Menu {
-  public:
-    // Return number (0-9) of selected choice. -1 on error (or user cancelled).
-    virtual int8_t multiChoice(const char *choices[], uint8_t numChoices, int8_t selectedChoice) = 0;
-    // Return selected choice. -1 on error (or user cancelled).
-    virtual char multiChoice(const char *choiceStrings[], const char *choices, char selectedChoice) = 0;
-  protected:
-    BasicLog *m_log;
-};
-
-class StreamMenu : public Menu {
-  public:
-    void begin(BasicLog *log, ExtendedSerial *stdIn, Print *stdOut);
-    void setOutputStream(Print *stdOut);
-    // Return number (0-9) of selected choice. -1 on error (or user cancelled).
-    int8_t multiChoice(const char *choices[], uint8_t numChoices, int8_t selectedChoice = -1);
-    // Return selected choice. -1 on error (or user cancelled).
-    char multiChoice(const char *choiceStrings[], const char *choices, char selectedChoice = '\0');
-  protected:
-    ExtendedSerial *m_stdin;
-    Print *m_stdout;
-};
-
-#ifdef TFT_ENABLED
 
 #define MAX_CHOICES 20
 
@@ -38,17 +13,6 @@ class StreamMenu : public Menu {
 
 typedef std::function<const char *(uint8_t cell_nr)> TLabel_Getter;
 typedef std::function<uint32_t(uint8_t cell_nr)> TColor_Getter;
-
-#define NUM_COMBOS 6
-const uint32_t menuColourCombos[2*NUM_COMBOS] = {
-  // Fill colout    Text colour
-  TFT_YELLOW,       TFT_BLACK,
-  TFT_ORANGE,       TFT_BLACK,
-  TFT_BLUE,         TFT_WHITE,
-  TFT_CYAN,         TFT_BLACK,
-  TFT_MAGENTA,      TFT_BLACK,
-  TFT_DARKGREEN,    TFT_WHITE,
-};
 
 class TFTMenu : public TouchControl {
   static const char *DEFAULT_LABEL_GETTER(uint8_t _cellNum) { return "-"; }
@@ -102,6 +66,4 @@ class TFTMenu : public TouchControl {
     void drawBorderAndFill();
 };
 
-#endif //#ifdef TFT_ENABLED
-
-#endif //#ifndef _MENU_H
+#endif //#ifndef _TFTMENU_H
