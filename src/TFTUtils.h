@@ -28,11 +28,24 @@ const LineProperties DefaultBorder = { TFT_WHITE, 1 };
 
 typedef std::function<void(TFT_eSPI *tft)> TFTHandler;
 
+typedef std::function<void(uint16_t x, uint16_t y)> TouchHandler;
+
 namespace TFTUtils {
+  void ignoreTouch(uint16_t x, uint16_t y);
+  bool contains(Window &w, uint16_t x, uint16_t y);
   void fillWindow(TFT_eSPI *tft, Window win, uint32_t fillColor);
   void drawBorderRect(TFT_eSPI *tft, Window win, uint32_t fillColor, LineProperties borderProps = DefaultBorder);
   // Read calibration data from file given, or calibrate and then save it there
   void touchCalibrate(TFT_eSPI *tft, const char *calFileName, bool forceCalibrate = false);
+};
+
+class TouchControl {
+  protected:
+    Window *m_win;
+    TouchHandler m_touchHandler = TFTUtils::ignoreTouch;
+  public:
+    Window *getWindow();
+    void handleTouch(uint16_t x, uint16_t y); // must be relative to control position
 };
 
 #endif // #ifdef TFT_ENABLED

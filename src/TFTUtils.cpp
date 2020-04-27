@@ -1,8 +1,13 @@
 #include "TFTUtils.h"
 
+Window *TouchControl::getWindow() { return m_win; }
+void TouchControl::handleTouch(uint16_t x, uint16_t y) { m_touchHandler(x,y); }
+
 void TFTUtils::fillWindow(TFT_eSPI *tft, Window win, uint32_t fillColor) {
   tft->fillRect(win.x, win.y, win.width, win.height, fillColor);
 }
+
+void TFTUtils::ignoreTouch(uint16_t x, uint16_t y) { return; }
 
 void TFTUtils::drawBorderRect(TFT_eSPI *tft, Window win, uint32_t fillColor, LineProperties borderProps) {
   for (int i = 0; i < borderProps.width; i++) {
@@ -45,4 +50,10 @@ void TFTUtils::touchCalibrate(TFT_eSPI *tft, const char *calFileName, bool force
       f.close();
     }
   }
+}
+
+bool TFTUtils::contains(Window &w, uint16_t x, uint16_t y) {
+  if (x < w.x || x > w.x + w.width) return false;
+  if (y < w.y || y > w.y + w.height) return false;
+  return true;
 }
