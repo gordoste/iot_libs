@@ -24,6 +24,7 @@ class TFTMenu : public TouchControl {
     void onCellLabelPrint(TFTHandler fn) { m_onCellLabelPrint = fn; };
 
     void show();
+    bool isShown() { return m_shown; }
 
     int8_t getSelectedChoice();
     TFTMenu *setSelectedChoice(int8_t c);
@@ -33,6 +34,7 @@ class TFTMenu : public TouchControl {
 
     TFTMenu *setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y);
     TFTMenu *setNumChoices(uint8_t _n) { return setNumChoices(_n, 1, _n); };
+    uint8_t getNumChoices() { return m_numChoices; }
 
     TFTMenu *setLabelGetter(TLabel_Getter _lg) { m_labelGetter = _lg; return this; }
     TFTMenu *setFillColorGetter(TColor_Getter _cg) { m_fillColorGetter = _cg; return this; }
