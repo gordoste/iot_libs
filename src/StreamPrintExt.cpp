@@ -14,4 +14,3 @@ void StreamPrintExt::setFlushOnNewline(bool flushOnNL) {
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_STREAMPRINTEXT)
 StreamPrintExt StreamExt;
 #endif
-

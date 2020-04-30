@@ -1,12 +1,10 @@
 #include "ExtendedSerial.h"
 
-void ExtendedSerial::begin(int speed)
-{
+void ExtendedSerial::begin(int speed) {
     Serial.begin(speed);
 }
 
-size_t ExtendedSerial::write(uint8_t ch)
-{
+size_t ExtendedSerial::write(uint8_t ch) {
     ch = StringUtils::utf8ascii(ch);
     if (ch == 0) return 0;
     Serial.write(ch);
@@ -20,11 +18,14 @@ size_t ExtendedSerial::write(uint8_t ch)
 void ExtendedSerial::setOTA(EasyOTA *ota) { m_ota = ota; }
 
 char ExtendedSerial::timedRead() {
-  unsigned long lastOTA = 0;
-  while (!Serial.available()) {
-    if (millis() - lastOTA > MAX_OTA_WAIT) { m_ota->loop(); lastOTA = millis(); }
-  }
-  return Serial.read();
+    unsigned long lastOTA = 0;
+    while (!Serial.available()) {
+        if (millis() - lastOTA > MAX_OTA_WAIT) {
+            m_ota->loop();
+            lastOTA = millis();
+        }
+    }
+    return Serial.read();
 }
 #endif
 

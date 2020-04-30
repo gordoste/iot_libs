@@ -8,21 +8,21 @@
 #include <Arduino.h>
 
 // All methods add a newline if AutoNewline is enabled.
-class PrintExt : public Print
-{
+class PrintExt : public Print {
 public:
-  void printf(const char *fmt, ...);
+    void printf(const char *fmt, ...);
 #ifdef F // check to see if F() macro is available
-  void printf(const __FlashStringHelper *fmt, ...);
+    void printf(const __FlashStringHelper *fmt, ...);
 #endif
-  // Use this to easily make similar functions
-  void vprintf(const char *fmt, va_list argp);
-  bool getAutoNewline();
-  void setAutoNewline(bool autoNewline);
+    // Use this to easily make similar functions
+    void vprintf(const char *fmt, va_list argp);
+    bool getAutoNewline();
+    void setAutoNewline(bool autoNewline);
+
 private:
-  char m_buf[PRINTEXT_PRINTF_BUF];
-  bool m_autoNewline = true;
-  void autoNewline();
+    char m_buf[PRINTEXT_PRINTF_BUF];
+    bool m_autoNewline = true;
+    void autoNewline();
 };
 
 #endif // #ifndef _PRINTEXT_H

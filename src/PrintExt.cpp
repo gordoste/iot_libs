@@ -1,7 +1,6 @@
 #include "PrintExt.h"
 
-void PrintExt::vprintf(const char *fmt, va_list argp)
-{
+void PrintExt::vprintf(const char *fmt, va_list argp) {
     vsnprintf(m_buf, sizeof(m_buf), fmt, argp);
     for (char *p = &m_buf[0]; *p; p++) // emulate cooked mode for newlines
     {
@@ -12,8 +11,7 @@ void PrintExt::vprintf(const char *fmt, va_list argp)
     autoNewline();
 }
 
-void PrintExt::printf(const char *fmt, ...)
-{
+void PrintExt::printf(const char *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);
     vprintf(fmt, argp);
@@ -21,8 +19,7 @@ void PrintExt::printf(const char *fmt, ...)
 }
 
 #ifdef F // check to see if F() macro is available
-void PrintExt::printf(const __FlashStringHelper *fmt, ...)
-{
+void PrintExt::printf(const __FlashStringHelper *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);
 #ifdef __AVR__
@@ -45,13 +42,11 @@ bool PrintExt::getAutoNewline() {
     return m_autoNewline;
 }
 
-void PrintExt::setAutoNewline(bool autoNewline)
-{
+void PrintExt::setAutoNewline(bool autoNewline) {
     this->m_autoNewline = autoNewline;
 }
 
-void PrintExt::autoNewline()
-{
+void PrintExt::autoNewline() {
     if (!m_autoNewline)
         return;
     write('\r');

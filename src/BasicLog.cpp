@@ -1,22 +1,18 @@
 #include "BasicLog.h"
 
-void BasicLog::begin(PrintExt *p)
-{
+void BasicLog::begin(PrintExt *p) {
     m_dest = p;
 }
 
-void BasicLog::useLogLabels(bool enable)
-{
+void BasicLog::useLogLabels(bool enable) {
     m_useLogLabels = enable;
 }
 
-void BasicLog::setLogLevel(LogLevel lvl)
-{
+void BasicLog::setLogLevel(LogLevel lvl) {
     m_logLvl = lvl;
 }
 
-void BasicLog::debug3(const char *fmt, ...)
-{
+void BasicLog::debug3(const char *fmt, ...) {
     if (m_logLvl < LOG_DBG3)
         return;
     va_list argp;
@@ -27,8 +23,7 @@ void BasicLog::debug3(const char *fmt, ...)
     va_end(argp);
 }
 
-void BasicLog::debug2(const char *fmt, ...)
-{
+void BasicLog::debug2(const char *fmt, ...) {
     if (m_logLvl < LOG_DBG2)
         return;
     va_list argp;
@@ -39,8 +34,7 @@ void BasicLog::debug2(const char *fmt, ...)
     va_end(argp);
 }
 
-void BasicLog::debug(const char *fmt, ...)
-{
+void BasicLog::debug(const char *fmt, ...) {
     if (m_logLvl < LOG_DBG)
         return;
     va_list argp;
@@ -51,8 +45,7 @@ void BasicLog::debug(const char *fmt, ...)
     va_end(argp);
 }
 
-void BasicLog::log(const char *fmt, ...)
-{
+void BasicLog::log(const char *fmt, ...) {
     if (m_logLvl < LOG_LOG)
         return;
     va_list argp;
@@ -63,8 +56,7 @@ void BasicLog::log(const char *fmt, ...)
     va_end(argp);
 }
 
-void BasicLog::error(const char *fmt, ...)
-{
+void BasicLog::error(const char *fmt, ...) {
     if (m_logLvl < LOG_ERR)
         return;
     va_list argp;
@@ -76,38 +68,38 @@ void BasicLog::error(const char *fmt, ...)
 }
 
 #ifdef F // check to see if F() macro is available
-  void BasicLog::debug3(const __FlashStringHelper *fmt, ...) {
+void BasicLog::debug3(const __FlashStringHelper *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);
     debug3((const char *)fmt, argp);
     va_end(argp);
-  }
+}
 
-  void BasicLog::debug2(const __FlashStringHelper *fmt, ...) {
+void BasicLog::debug2(const __FlashStringHelper *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);
     debug2((const char *)fmt, argp);
     va_end(argp);
-  }
+}
 
-  void BasicLog::debug(const __FlashStringHelper *fmt, ...) {
+void BasicLog::debug(const __FlashStringHelper *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);
     debug((const char *)fmt, argp);
     va_end(argp);
-  }
-  
-  void BasicLog::log(const __FlashStringHelper *fmt, ...) {
+}
+
+void BasicLog::log(const __FlashStringHelper *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);
     log((const char *)fmt, argp);
     va_end(argp);
-  }
-  
-  void BasicLog::error(const __FlashStringHelper *fmt, ...) {
+}
+
+void BasicLog::error(const __FlashStringHelper *fmt, ...) {
     va_list argp;
     va_start(argp, fmt);
     error((const char *)fmt, argp);
     va_end(argp);
-  }
+}
 #endif

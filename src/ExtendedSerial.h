@@ -9,20 +9,19 @@
 #include "JeVe_EasyOTA.h"
 #endif
 
-class ExtendedSerial : public PrintExt
-{
+class ExtendedSerial : public PrintExt {
 public:
-  ExtendedSerial(){};
-  void begin(int speed);
-  virtual size_t write(uint8_t ch);
+    ExtendedSerial(){};
+    void begin(int speed);
+    virtual size_t write(uint8_t ch);
 
 #ifdef OTA_ENABLED
-  void setOTA(EasyOTA *ota);
-  char timedRead();
-private:
-  EasyOTA *m_ota;
-#endif
+    void setOTA(EasyOTA *ota);
+    char timedRead();
 
+private:
+    EasyOTA *m_ota;
+#endif
 };
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_EXTENDEDSERIAL)

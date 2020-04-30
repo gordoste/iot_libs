@@ -4,12 +4,11 @@
 #ifdef TFT_ENABLED
 
 #include "PrintExt.h"
-#include "TFT_eSPI.h"
 #include "TFTUtils.h"
+#include "TFT_eSPI.h"
 
-class TFTPrintExt : public PrintExt
-{
-  public:
+class TFTPrintExt : public PrintExt {
+public:
     TFTPrintExt(){};
     void begin(TFT_eSPI *tft, Window *win = NULL);
     void clear();
@@ -18,7 +17,8 @@ class TFTPrintExt : public PrintExt
     void setTextColor(uint32_t textColor);
     void onWrite(TFTHandler fn) { onWriteFn = fn; };
     virtual size_t write(uint8_t ch);
-  private:
+
+private:
     TFT_eSPI *m_tft;
     Window *m_win;
     Point m_cursor;
@@ -34,4 +34,3 @@ extern TFTPrintExt TFTExt;
 #endif // #ifdef TFT_ENABLED
 
 #endif // #ifndef _TFTPRINTEXT_H
-

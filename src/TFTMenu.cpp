@@ -35,7 +35,8 @@ void TFTMenu::show() {
     m_log->debug2("selectGrid() %d:%d:%d:%d:%d:%d", m_xDivs, m_yDivs, m_numChoices, m_selectedChoice);
     uint8_t cellNum;
     m_log->debug3("sG_begin-%d:%d:%d:%d", m_win->x, m_win->y, m_win->width, m_win->height);
-    for (cellNum = 0; cellNum < m_numChoices; cellNum++) drawCell(cellNum);
+    for (cellNum = 0; cellNum < m_numChoices; cellNum++)
+        drawCell(cellNum);
     m_touchHandler = [this](uint16_t x, uint16_t y, bool absolute) {
         if (!absolute) { // handle relative co-ordinates
             x += m_win->x;
@@ -44,10 +45,10 @@ void TFTMenu::show() {
 
         int8_t sel = -1;
         for (uint8_t t = 0; t < m_numChoices; t++) {
-          getCell(t);
-          if (TFTUtils::contains(m_currentCell, x, y)) {
-            sel = t;
-          }
+            getCell(t);
+            if (TFTUtils::contains(m_currentCell, x, y)) {
+                sel = t;
+            }
         }
         setSelectedChoice(sel);
     };
