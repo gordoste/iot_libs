@@ -8,7 +8,7 @@
 
 #define MAX_CHOICES 20
 
-#include "TFTUtils.h"
+#include "TouchControl.h"
 #include "TFT_eSPI.h"
 
 typedef std::function<const char *(uint8_t cell_nr)> TLabel_Getter;
@@ -47,9 +47,6 @@ public:
 
 protected:
     BasicLog *m_log;
-    TFT_eSPI *m_tft;
-    Window *m_win;
-    bool m_shown = false;
     TFTHandler m_onCellLabelPrint = NULL;
     const char **m_cellLabels;
     const char *m_allChoices[MAX_CHOICES];

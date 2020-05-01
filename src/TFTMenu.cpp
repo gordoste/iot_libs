@@ -1,9 +1,8 @@
 #include "TFTMenu.h"
 
 void TFTMenu::begin(BasicLog *log, TFT_eSPI *tft, Window *w) {
+    init(tft, w);
     m_log = log;
-    m_tft = tft;
-    m_win = w;
     m_labelGetter = DEFAULT_LABEL_GETTER;
     m_fillColorGetter = MENU_BLACK_GETTER;
 }

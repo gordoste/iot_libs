@@ -1,12 +1,5 @@
 #include "TFTUtils.h"
 
-Window *TouchControl::getWindow() { return m_win; }
-void TouchControl::handleTouch(uint16_t x, uint16_t y, bool absolute) {
-    if (m_lastTouchTime + TFT_TOUCH_TIME > millis()) return;
-    m_touchHandler(x, y, absolute);
-    m_lastTouchTime = millis();
-}
-
 void TFTUtils::fillWindow(TFT_eSPI *tft, Window win, uint32_t fillColor) {
     tft->fillRect(win.x, win.y, win.width, win.height, fillColor);
 }

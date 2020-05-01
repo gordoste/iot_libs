@@ -30,27 +30,15 @@ const LineProperties DefaultBorder = {TFT_WHITE, 1};
 
 typedef std::function<void(TFT_eSPI *tft)> TFTHandler;
 
-typedef std::function<void(uint16_t x, uint16_t y, bool absolute)> TouchHandler;
-
-namespace TFTUtils {
-void ignoreTouch(uint16_t x, uint16_t y, bool absolute);
-bool contains(Window &w, uint16_t x, uint16_t y);
-void fillWindow(TFT_eSPI *tft, Window win, uint32_t fillColor);
-void drawBorderRect(TFT_eSPI *tft, Window win, uint32_t fillColor, LineProperties borderProps = DefaultBorder);
-// Read calibration data from file given, or calibrate and then save it there
-void touchCalibrate(TFT_eSPI *tft, const char *calFileName, bool forceCalibrate = false);
-}; // namespace TFTUtils
-
-class TouchControl {
-protected:
-    Window *m_win;
-    TouchHandler m_touchHandler = TFTUtils::ignoreTouch;
-    uint32_t m_lastTouchTime = 0;
-
+class TFTUtils {
 public:
-    Window *getWindow();
-    void handleTouch(uint16_t x, uint16_t y, bool absolute);
-};
+    static void ignoreTouch(uint16_t x, uint16_t y, bool absolute);
+    static bool contains(Window &w, uint16_t x, uint16_t y);
+    static void fillWindow(TFT_eSPI *tft, Window win, uint32_t fillColor);
+    static void drawBorderRect(TFT_eSPI *tft, Window win, uint32_t fillColor, LineProperties borderProps = DefaultBorder);
+    // Read calibration data from file given, or calibrate and then save it there
+    static void touchCalibrate(TFT_eSPI *tft, const char *calFileName, bool forceCalibrate = false);
+}; // namespace TFTUtils
 
 #endif // #ifdef TFT_ENABLED
 
