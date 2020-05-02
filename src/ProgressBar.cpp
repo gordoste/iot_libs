@@ -1,7 +1,9 @@
 #include "ProgressBar.h"
 
 void ProgressBar::setProgress(uint16_t progress, uint16_t total) {
-    m_progress = progress / (total / (m_win->width - 2));
+    while (total < 0x8000U) { progress <<= 1; total <<= 1; } // Scale up to make math easier
+    uint16_t step = total / (m_win->width-2); // Figure out value of one pixel
+    m_progress = progress/step;
     update();
 }
 
@@ -13,8 +15,8 @@ void ProgressBar::show() {
 }
 
 void ProgressBar::update() {
-    //if (m_progress != m_lastProgress) {
+    if (m_progress != m_lastProgress) {
         m_tft->fillRect(m_win->x+1, m_win->y+1, m_progress, m_win->height-2, m_fillColor);
-    //}
-    //m_lastProgress = m_progress;
+    }
+    m_lastProgress = m_progress;
 }
