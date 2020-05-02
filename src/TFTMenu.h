@@ -24,6 +24,7 @@ public:
     void onCellLabelPrint(TFTHandler fn) { m_onCellLabelPrint = fn; };
 
     void show();
+    void showText(const char *str);
     bool isShown() { return m_shown; }
 
     int8_t getSelectedChoice();

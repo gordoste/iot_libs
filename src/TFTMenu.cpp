@@ -117,3 +117,7 @@ void TFTMenu::drawBorderAndFill() {
         TFTUtils::drawBorderRect(m_tft, m_currentCell, m_fillColorGetter(m_currentCellNum), m_borderProps);
     }
 }
+
+void TFTMenu::showText(const char *str) {
+    m_log->log(str);
+}
