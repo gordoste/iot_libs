@@ -54,3 +54,18 @@ bool TFTUtils::contains(Window &w, uint16_t x, uint16_t y) {
     if (y < w.y || y > w.y + w.height) return false;
     return true;
 }
+
+bool TFTUtils::overlaps(Window &w1, Window &w2) {
+    if (w1.x <= w2.x && w1.y <= w2.y) { // TL1 up & left of TL2
+        return w1.x + w1.width > w2.x && w1.y + w1.height > w2.y;
+    }
+    if (w1.x <= w2.x && w1.y > w2.y) { // TL1 down & left of TL2
+        return w1.x + w1.width > w2.x && w1.y < w2.y + w2.height;
+    }
+    if (w1.x > w2.x && w1.y <= w2.y) { // TL1 up & right of TL2
+        return w1.x < w2.x + w2.width && w1.y + w1.height > w2.y;
+    }
+    if (w1.x > w2.x && w1.y > w1.y) { // TL1 down & right of TL2
+        return w1.x < w2.x + w2.width && w1.y < w2.y + w2.height;
+    }
+}
