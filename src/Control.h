@@ -22,8 +22,8 @@ protected:
 public:
     Control &init(TFT_eSPI *tft, Window *win);
     Window *getWindow() { return m_win; }
-    virtual void show() = 0;
-    virtual void update() { show(); }
+    virtual void show() = 0; // Pure virtual function that needs to be implemented in child
+    virtual void update() { show(); } // Can be over-ridden
     Control &setText(const char *str);
     Control &setTextAlign(uint8_t textAlign) {
         m_textAlign = textAlign;
@@ -49,9 +49,9 @@ public:
     Control &setTextFont(uint8_t font);
 #endif
 
-private:
+protected:
     void updateTFTFont(); // Set the font on the TFT before drawing text
-    virtual void showText(const char *str) = 0; // Display text. Control class looks after font and text color
+    virtual void showText(const char *str); // Display text. Can be over-ridden
 };
 
 #endif // #ifndef _CONTROL_H

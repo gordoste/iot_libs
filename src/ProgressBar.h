@@ -13,7 +13,6 @@ private:
 public:
     void setProgress(uint32_t progress, uint32_t total);
     void show();
-    void showText(const char *str);
     void update();
 
     uint16_t getFillColor() { return m_fillColor; }
