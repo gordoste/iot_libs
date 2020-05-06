@@ -65,7 +65,8 @@ bool TFTUtils::overlaps(Window &w1, Window &w2) {
     if (w1.x > w2.x && w1.y <= w2.y) { // TL1 up & right of TL2
         return w1.x < w2.x + w2.width && w1.y + w1.height > w2.y;
     }
-    if (w1.x > w2.x && w1.y > w1.y) { // TL1 down & right of TL2
+    if (w1.x > w2.x && w1.y > w2.y) { // TL1 down & right of TL2
         return w1.x < w2.x + w2.width && w1.y < w2.y + w2.height;
     }
+    return false;
 }
