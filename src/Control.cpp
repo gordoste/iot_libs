@@ -43,13 +43,14 @@ void Control::updateTFTFont() {
 }
 
 Control &Control::setText(const char *str) {
-    updateTFTFont();
     m_text = str;
-    showText(m_text);
     return *this;
 }
 
-void Control::showText(const char *str) {
+void Control::paintText() {
+    if (!m_shown) return;
+    updateTFTFont();
+    before_paintText();
     Point textPos = {0, 0};
     // Calculate where the text should be
     switch (m_textAlign) {
@@ -91,7 +92,7 @@ void Control::showText(const char *str) {
         textPos.y = m_win->y;
     }
     m_tft->setTextDatum(m_textAlign);
-    m_textWin.width = m_tft->drawString(str, textPos.x, textPos.y);
+    m_textWin.width = m_tft->drawString(m_text, textPos.x, textPos.y);
     m_textWin.height = m_tft->fontHeight();
     // Update textWindow with actual positions from TFT library
     switch (m_textAlign) {
@@ -132,4 +133,5 @@ void Control::showText(const char *str) {
     default:
         m_textWin.y = textPos.y;
     }
+    after_paintText();
 }

@@ -51,7 +51,9 @@ public:
 
 protected:
     void updateTFTFont(); // Set the font on the TFT before drawing text
-    virtual void showText(const char *str); // Display text. Can be over-ridden
+    virtual void paintText(); // Display text. Can be over-ridden
+    virtual void before_paintText() {};
+    virtual void after_paintText() {};
 };
 
 #endif // #ifndef _CONTROL_H
