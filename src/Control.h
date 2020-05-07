@@ -3,10 +3,13 @@
 
 #include "TFTUtils.h"
 
+#include "BasicLog.h"
+
 class Control {
 protected:
     TFT_eSPI *m_tft;
     Window *m_win;
+    BasicLog *m_log;
     bool m_shown = false;
     uint8_t m_textFont = 1;
     uint8_t m_textAlign = TL_DATUM;
@@ -20,7 +23,7 @@ protected:
 #endif
 
 public:
-    Control &init(TFT_eSPI *tft, Window *win);
+    Control &init(BasicLog *log, TFT_eSPI *tft, Window *win); // Use TouchScreen.addControl() instead of calling directly
     Window *getWindow() { return m_win; }
     virtual void show() = 0; // Pure virtual function that needs to be implemented in child
     virtual void update() { show(); } // Can be over-ridden

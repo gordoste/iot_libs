@@ -1,6 +1,7 @@
 #include "Control.h"
 
-Control &Control::init(TFT_eSPI *tft, Window *win) {
+Control &Control::init(BasicLog *log, TFT_eSPI *tft, Window *win) {
+    m_log = log;
     m_tft = tft;
     m_win = win;
     return *this;
