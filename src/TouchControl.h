@@ -2,8 +2,7 @@
 #define _TOUCH_CONTROL_H
 
 #include "Control.h"
-
-typedef std::function<void(uint16_t x, uint16_t y, bool absolute)> TouchHandler;
+#include "TFTUtils.h"
 
 class TouchControl : public Control {
 protected:

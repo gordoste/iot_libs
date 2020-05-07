@@ -29,6 +29,7 @@ struct LineProperties {
 const LineProperties DefaultBorder = {TFT_WHITE, 1};
 
 typedef std::function<void(TFT_eSPI *tft)> TFTHandler;
+typedef std::function<void(uint16_t x, uint16_t y, bool absolute)> TouchHandler;
 
 class TFTUtils {
 public:
