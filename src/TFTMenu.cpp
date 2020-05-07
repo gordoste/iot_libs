@@ -1,12 +1,5 @@
 #include "TFTMenu.h"
 
-void TFTMenu::begin(BasicLog *log, TFT_eSPI *tft, Window *w) {
-    init(tft, w);
-    m_log = log;
-    m_labelGetter = DEFAULT_LABEL_GETTER;
-    m_fillColorGetter = MENU_BLACK_GETTER;
-}
-
 TFTMenu *TFTMenu::setBorderProps(LineProperties &_props) {
     m_borderProps.color = _props.color;
     m_borderProps.width = _props.width;

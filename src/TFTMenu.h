@@ -1,15 +1,11 @@
 #ifndef _TFTMENU_H
 #define _TFTMENU_H
 
-#include "BasicLog.h"
-#include "ExtendedSerial.h"
 #include "StringUtils.h"
-#include <Arduino.h>
 
 #define MAX_CHOICES 20
 
 #include "TouchControl.h"
-#include "TFT_eSPI.h"
 
 typedef std::function<const char *(uint8_t cell_nr)> TLabel_Getter;
 typedef std::function<uint32_t(uint8_t cell_nr)> TColor_Getter;
@@ -20,7 +16,6 @@ class TFTMenu : public TouchControl {
     static uint32_t MENU_BLACK_GETTER(uint8_t _cellNum) { return TFT_BLACK; }
 
 public:
-    void begin(BasicLog *log, TFT_eSPI *tft, Window *win);
     void onCellLabelPrint(TFTHandler fn) { m_onCellLabelPrint = fn; };
 
     void show();
@@ -47,7 +42,6 @@ public:
     }
 
 protected:
-    BasicLog *m_log;
     TFTHandler m_onCellLabelPrint = NULL;
     const char **m_cellLabels;
     const char *m_allChoices[MAX_CHOICES];
@@ -58,8 +52,8 @@ protected:
     uint8_t m_numChoices;
     Window m_currentCell;
     uint8_t m_currentCellNum;
-    TLabel_Getter m_labelGetter;
-    TColor_Getter m_fillColorGetter;
+    TLabel_Getter m_labelGetter = DEFAULT_LABEL_GETTER;
+    TColor_Getter m_fillColorGetter = MENU_BLACK_GETTER;
     LineProperties m_borderProps = DefaultBorder;
     LineProperties m_selectedBorderProps = {TFT_RED, 3};
 
