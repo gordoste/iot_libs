@@ -11,6 +11,7 @@ protected:
     Window *m_win;
     BasicLog *m_log;
     bool m_shown = false;
+    uint16_t m_backgroundColor = TFT_BLACK;
     uint8_t m_textFont = 1;
     uint8_t m_textAlign = TL_DATUM;
     uint8_t m_textPadding = 0;
@@ -27,6 +28,10 @@ public:
     Window *getWindow() { return m_win; }
     virtual void show() = 0; // Pure virtual function that needs to be implemented in child
     virtual void update() { show(); } // Can be over-ridden
+
+    uint16_t getBackgroundColor() { return m_backgroundColor; }
+    void setBackgroundColor(uint16_t c) { m_backgroundColor = c; }
+
     Control &setText(const char *str);
     Control &setTextAlign(uint8_t textAlign) {
         m_textAlign = textAlign;
