@@ -12,7 +12,7 @@ class TouchScreen {
         void init(BasicLog *log, TFT_eSPI *tft);
         void addControl(Control *ctl, Window *win);
         void addTouchControl(TouchControl *ctl, Window *win);
-        void checkForTouch();
+        TouchControl *checkForTouch(); // Return the control that handled the touch
     private:
         BasicLog *m_log;
         TFT_eSPI *m_tft;
