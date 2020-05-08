@@ -17,15 +17,25 @@ void TouchScreen::addTouchControl(TouchControl *ctl, Window *win) {
 
 TouchControl *TouchScreen::checkForTouch() {
     if (m_tft->getTouch(&m_touchX, &m_touchY)) {
-        std::list<TouchControl *>::iterator it = m_listOfTouchControls.begin();
-        while (it != m_listOfTouchControls.end()) {
-            Window *ctlWin = (*it)->getWindow();
+        for (m_touchCtlIter = m_listOfTouchControls.begin(); m_touchCtlIter != m_listOfTouchControls.end(); m_touchCtlIter++) {
+            Window *ctlWin = (*m_touchCtlIter)->getWindow();
             if (TFTUtils::contains((*ctlWin), m_touchX, m_touchY)) {
-                (*it)->handleTouch(m_touchX, m_touchY, true);
-                return (*it);
+                (*m_touchCtlIter)->handleTouch(m_touchX, m_touchY, true);
+                return (*m_touchCtlIter);
             }
-            it++;
         }
     }
     return NULL;
+}
+
+void TouchScreen::showAll() {
+    for (m_ctlIter = m_listOfControls.begin(); m_ctlIter != m_listOfControls.end(); m_ctlIter++) {
+        (*m_ctlIter)->show();
+    }
+}
+
+void TouchScreen::updateAll() {
+    for (m_ctlIter = m_listOfControls.begin(); m_ctlIter != m_listOfControls.end(); m_ctlIter++) {
+        (*m_ctlIter)->update();
+    }
 }
