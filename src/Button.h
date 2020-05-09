@@ -9,6 +9,8 @@ private:
     uint16_t m_borderColor = TFT_WHITE;
 
 public:
+    void init();
+
     void show();
     void update();
 
