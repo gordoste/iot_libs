@@ -3,6 +3,7 @@
 void StreamPrintExt::begin(Stream *str) { m_str = str; }
 
 size_t StreamPrintExt::write(uint8_t ch) {
+    if (m_str == NULL) return 0;
     if (m_flushOnNL && ch == '\n') m_str->flush();
     return m_str->write(ch);
 }

@@ -11,7 +11,7 @@ public:
     void setFlushOnNewline(bool flushOnNL);
 
 private:
-    Stream *m_str;
+    Stream *m_str = NULL;
     bool m_flushOnNL = false;
 };
 
