@@ -11,9 +11,9 @@ void ProgressBar::setProgress(uint32_t progress, uint32_t total) {
 }
 
 void ProgressBar::show() {
-    TFTUtils::fillWindow(m_tft, *m_win, m_backgroundColor);
-    m_tft->drawRect(m_win->x, m_win->y, m_win->width, m_win->height, m_borderColor);
+    clear();
     m_shown = true;
+    paintBorder();
     paintText(); // Necessary to initialise m_textWin
     update();
 }

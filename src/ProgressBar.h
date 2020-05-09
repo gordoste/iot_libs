@@ -9,18 +9,16 @@ private:
     uint16_t m_lastProgress = 0; // How many pixels of progress we painted last time
     uint32_t m_progressX;        // Where to paint the bar to (absolute co-ordinate)
     uint16_t m_fillColor = TFT_BLUE;
-    uint16_t m_borderColor = TFT_WHITE;
 
 public:
+    using Control::init;
+    void init() {};
     void setProgress(uint32_t progress, uint32_t total);
     void show();
     void update();
 
     uint16_t getFillColor() { return m_fillColor; }
     void setFillColor(uint16_t c) { m_fillColor = c; }
-
-    uint16_t getBorderColor() { return m_borderColor; }
-    void setBorderColor(uint16_t c) { m_borderColor = c; }
 
     void before_paintText();
 };
