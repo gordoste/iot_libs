@@ -4,6 +4,7 @@ Control &Control::init(BasicLog *log, TFT_eSPI *tft, Window *win) {
     m_log = log;
     m_tft = tft;
     m_win = win;
+    init(); // Call child class initialiser
     return *this;
 }
 
@@ -58,7 +59,7 @@ void Control::paintText() {
     case TL_DATUM:
     case ML_DATUM:
     case BL_DATUM:
-        textPos.x = m_win->x + m_textPadding;
+        textPos.x = m_win->x + m_borderProps.width + m_textPadding;
         break;
     case TC_DATUM:
     case MC_DATUM:
@@ -68,7 +69,7 @@ void Control::paintText() {
     case TR_DATUM:
     case MR_DATUM:
     case BR_DATUM:
-        textPos.x = m_win->x + m_win->width - m_textPadding;
+        textPos.x = m_win->x + m_win->width - m_borderProps.width - m_textPadding;
         break;
     default:
         textPos.x = m_win->x;
@@ -77,7 +78,7 @@ void Control::paintText() {
     case TL_DATUM:
     case TC_DATUM:
     case TR_DATUM:
-        textPos.y = m_win->y + m_textPadding;
+        textPos.y = m_win->y + m_borderProps.width + m_textPadding;
         break;
     case ML_DATUM:
     case MC_DATUM:
@@ -87,7 +88,7 @@ void Control::paintText() {
     case BL_DATUM:
     case BC_DATUM:
     case BR_DATUM:
-        textPos.y = m_win->y + m_win->height - m_textPadding;
+        textPos.y = m_win->y + m_win->height - m_borderProps.width - m_textPadding;
         break;
     default:
         textPos.y = m_win->y;
@@ -135,4 +136,19 @@ void Control::paintText() {
         m_textWin.y = textPos.y;
     }
     after_paintText();
+}
+
+void Control::hide() {
+    if (!m_shown) return;
+    clear();
+    m_shown = false;
+}
+
+void Control::paintBorder() {
+    if (!m_shown) return;
+    TFTUtils::drawBorderRect(m_tft, *m_win, TFT_BLACK, m_borderProps, false);
+}
+
+void Control::clear() {
+    TFTUtils::fillWindow(m_tft, *m_win, m_backgroundColor);
 }
