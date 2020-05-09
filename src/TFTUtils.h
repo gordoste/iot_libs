@@ -37,10 +37,10 @@ public:
     static bool contains(Window &w, uint16_t x, uint16_t y);
     static bool overlaps(Window &w1, Window &w2);
     static void fillWindow(TFT_eSPI *tft, Window win, uint32_t fillColor);
-    static void drawBorderRect(TFT_eSPI *tft, Window win, uint32_t fillColor, LineProperties borderProps = DefaultBorder);
+    static void drawBorderRect(TFT_eSPI *tft, Window win, uint32_t fillColor, LineProperties borderProps = DefaultBorder, bool fill = true);
     // Read calibration data from file given, or calibrate and then save it there
     static void touchCalibrate(TFT_eSPI *tft, const char *calFileName, bool forceCalibrate = false);
-}; // namespace TFTUtils
+}; // class TFTUtils
 
 #endif // #ifdef TFT_ENABLED
 
