@@ -16,16 +16,17 @@ class TFTMenu : public TouchControl {
     static uint32_t MENU_BLACK_GETTER(uint8_t _cellNum) { return TFT_BLACK; }
 
 public:
-    void onCellLabelPrint(TFTHandler fn) { m_onCellLabelPrint = fn; };
-
+    void init() {};
     void show();
     void showText(const char *str);
     bool isShown() { return m_shown; }
 
+    void onCellLabelPrint(TFTHandler fn) { m_onCellLabelPrint = fn; };
+
     int8_t getSelectedChoice();
     TFTMenu *setSelectedChoice(int8_t c);
 
-    TFTMenu *setBorderProps(LineProperties &_props);
+    TFTMenu *setChoiceBorderProps(LineProperties &_props);
     TFTMenu *setSelectedBorderProps(LineProperties &_props);
 
     TFTMenu *setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y);
@@ -54,7 +55,7 @@ protected:
     uint8_t m_currentCellNum;
     TLabel_Getter m_labelGetter = DEFAULT_LABEL_GETTER;
     TColor_Getter m_fillColorGetter = MENU_BLACK_GETTER;
-    LineProperties m_borderProps = DefaultBorder;
+    LineProperties m_choiceBorderProps = DefaultBorder;
     LineProperties m_selectedBorderProps = {TFT_RED, 3};
 
 private:

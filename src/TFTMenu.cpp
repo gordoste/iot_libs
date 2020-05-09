@@ -1,8 +1,8 @@
 #include "TFTMenu.h"
 
-TFTMenu *TFTMenu::setBorderProps(LineProperties &_props) {
-    m_borderProps.color = _props.color;
-    m_borderProps.width = _props.width;
+TFTMenu *TFTMenu::setChoiceBorderProps(LineProperties &_props) {
+    m_choiceBorderProps.color = _props.color;
+    m_choiceBorderProps.width = _props.width;
     return this;
 }
 
@@ -107,7 +107,7 @@ void TFTMenu::drawBorderAndFill() {
     if (m_currentCellNum == m_selectedChoice) {
         TFTUtils::drawBorderRect(m_tft, m_currentCell, m_fillColorGetter(m_currentCellNum), m_selectedBorderProps);
     } else {
-        TFTUtils::drawBorderRect(m_tft, m_currentCell, m_fillColorGetter(m_currentCellNum), m_borderProps);
+        TFTUtils::drawBorderRect(m_tft, m_currentCell, m_fillColorGetter(m_currentCellNum), m_choiceBorderProps);
     }
 }
 
