@@ -1,5 +1,5 @@
-#ifndef _TFTMENU_H
-#define _TFTMENU_H
+#ifndef _MENU_H
+#define _MENU_H
 
 #include "StringUtils.h"
 
@@ -10,7 +10,7 @@
 typedef std::function<const char *(uint8_t cell_nr)> TLabel_Getter;
 typedef std::function<uint32_t(uint8_t cell_nr)> TColor_Getter;
 
-class TFTMenu : public TouchControl {
+class Menu : public TouchControl {
     static const char *DEFAULT_LABEL_GETTER(uint8_t _cellNum) { return "-"; }
     static uint32_t MENU_WHITE_GETTER(uint8_t _cellNum) { return TFT_WHITE; }
     static uint32_t MENU_BLACK_GETTER(uint8_t _cellNum) { return TFT_BLACK; }
@@ -24,20 +24,20 @@ public:
     void onCellLabelPrint(TFTHandler fn) { m_onCellLabelPrint = fn; };
 
     int8_t getSelectedChoice();
-    TFTMenu *setSelectedChoice(int8_t c);
+    Menu *setSelectedChoice(int8_t c);
 
-    TFTMenu *setChoiceBorderProps(LineProperties &_props);
-    TFTMenu *setSelectedBorderProps(LineProperties &_props);
+    Menu *setChoiceBorderProps(LineProperties &_props);
+    Menu *setSelectedBorderProps(LineProperties &_props);
 
-    TFTMenu *setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y);
-    TFTMenu *setNumChoices(uint8_t _n) { return setNumChoices(_n, 1, _n); };
+    Menu *setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y);
+    Menu *setNumChoices(uint8_t _n) { return setNumChoices(_n, 1, _n); };
     uint8_t getNumChoices() { return m_numChoices; }
 
-    TFTMenu *setLabelGetter(TLabel_Getter _lg) {
+    Menu *setLabelGetter(TLabel_Getter _lg) {
         m_labelGetter = _lg;
         return this;
     }
-    TFTMenu *setFillColorGetter(TColor_Getter _cg) {
+    Menu *setFillColorGetter(TColor_Getter _cg) {
         m_fillColorGetter = _cg;
         return this;
     }
@@ -68,4 +68,4 @@ private:
     void drawBorderAndFill();
 };
 
-#endif //#ifndef _TFTMENU_H
+#endif //#ifndef _MENU_H

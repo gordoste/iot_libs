@@ -1,18 +1,18 @@
-#include "TFTMenu.h"
+#include "Menu.h"
 
-TFTMenu *TFTMenu::setChoiceBorderProps(LineProperties &_props) {
+Menu *Menu::setChoiceBorderProps(LineProperties &_props) {
     m_choiceBorderProps.color = _props.color;
     m_choiceBorderProps.width = _props.width;
     return this;
 }
 
-TFTMenu *TFTMenu::setSelectedBorderProps(LineProperties &_props) {
+Menu *Menu::setSelectedBorderProps(LineProperties &_props) {
     m_selectedBorderProps.color = _props.color;
     m_selectedBorderProps.width = _props.width;
     return this;
 }
 
-TFTMenu *TFTMenu::setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y) {
+Menu *Menu::setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y) {
     m_numChoices = _n;
     m_xDivs = _x;
     m_yDivs = _y;
@@ -23,7 +23,7 @@ TFTMenu *TFTMenu::setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y) {
     return this;
 }
 
-void TFTMenu::show() {
+void Menu::show() {
     m_log->debug2("selectGrid() %d:%d:%d:%d:%d:%d", m_xDivs, m_yDivs, m_numChoices, m_selectedChoice);
     uint8_t cellNum;
     m_log->debug3("sG_begin-%d:%d:%d:%d", m_win->x, m_win->y, m_win->width, m_win->height);
@@ -49,8 +49,8 @@ void TFTMenu::show() {
     return;
 }
 
-int8_t TFTMenu::getSelectedChoice() { return m_selectedChoice; }
-TFTMenu *TFTMenu::setSelectedChoice(int8_t _cellNum) {
+int8_t Menu::getSelectedChoice() { return m_selectedChoice; }
+Menu *Menu::setSelectedChoice(int8_t _cellNum) {
     if (_cellNum == m_selectedChoice) return this;
     int8_t oldSel = m_selectedChoice;
     m_selectedChoice = _cellNum;
@@ -61,7 +61,7 @@ TFTMenu *TFTMenu::setSelectedChoice(int8_t _cellNum) {
     return this;
 };
 
-void TFTMenu::getCell(uint8_t c) {
+void Menu::getCell(uint8_t c) {
     m_currentDiv[0] = c % m_xDivs;
     m_currentDiv[1] = c / m_xDivs;
     m_currentCell.x = m_win->x + m_currentDiv[0] * m_divX;
@@ -72,18 +72,18 @@ void TFTMenu::getCell(uint8_t c) {
     m_log->debug2("getCell(%d) - %d:%d:%d:%d", c, m_currentCell.x, m_currentCell.y, m_currentCell.width, m_currentCell.height);
 }
 
-void TFTMenu::drawCell(uint8_t _cellNum) {
+void Menu::drawCell(uint8_t _cellNum) {
     getCell(_cellNum);
     drawBorderAndFill();
     drawLabel();
 }
 
-void TFTMenu::drawLabel(uint8_t _cellNum) {
+void Menu::drawLabel(uint8_t _cellNum) {
     getCell(_cellNum);
     drawLabel();
 }
 
-void TFTMenu::drawLabel() {
+void Menu::drawLabel() {
     const char *label;
     if (m_labelGetter != NULL) {
         label = m_labelGetter(m_currentCellNum);
@@ -98,12 +98,12 @@ void TFTMenu::drawLabel() {
     }
 }
 
-void TFTMenu::drawBorderAndFill(uint8_t _cellNum) {
+void Menu::drawBorderAndFill(uint8_t _cellNum) {
     getCell(_cellNum);
     drawBorderAndFill();
 }
 
-void TFTMenu::drawBorderAndFill() {
+void Menu::drawBorderAndFill() {
     if (m_currentCellNum == m_selectedChoice) {
         TFTUtils::drawBorderRect(m_tft, m_currentCell, m_fillColorGetter(m_currentCellNum), m_selectedBorderProps);
     } else {
@@ -111,6 +111,6 @@ void TFTMenu::drawBorderAndFill() {
     }
 }
 
-void TFTMenu::showText(const char *str) {
+void Menu::showText(const char *str) {
     m_log->log(str);
 }
