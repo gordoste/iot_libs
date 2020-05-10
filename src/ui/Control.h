@@ -33,7 +33,10 @@ public:
     virtual void hide();
 
     uint16_t getBackgroundColor() { return m_backgroundColor; }
-    void setBackgroundColor(uint16_t c) { m_backgroundColor = c; }
+    Control &setBackgroundColor(uint16_t c) {
+        m_backgroundColor = c;
+        return *this;
+    }
 
     Control &setText(const char *str);
     Control &setTextAlign(uint8_t textAlign) {
