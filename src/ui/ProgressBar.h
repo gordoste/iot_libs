@@ -12,7 +12,7 @@ private:
 
 public:
     using Control::init;
-    void init() {};
+    void init() { m_borderProps = { TFT_WHITE, 1 }; };
     void setProgress(uint32_t progress, uint32_t total);
     void show();
     void update();
