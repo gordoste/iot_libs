@@ -1,6 +1,6 @@
 #include "StreamPrintExt.h"
 
-void StreamPrintExt::begin(Stream *str) { m_str = str; }
+void StreamPrintExt::setStream(Stream *str) { m_str = str; }
 
 size_t StreamPrintExt::write(uint8_t ch) {
     if (m_str == NULL) return 0;
@@ -11,7 +11,3 @@ size_t StreamPrintExt::write(uint8_t ch) {
 void StreamPrintExt::setFlushOnNewline(bool flushOnNL) {
     this->m_flushOnNL = flushOnNL;
 }
-
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_STREAMPRINTEXT)
-StreamPrintExt StreamExt;
-#endif
