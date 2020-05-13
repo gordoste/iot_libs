@@ -52,6 +52,7 @@ void Menu::show() {
 int8_t Menu::getSelectedChoice() { return m_selectedChoice; }
 Menu *Menu::setSelectedChoice(int8_t _cellNum) {
     if (_cellNum == m_selectedChoice) return this;
+    if (_cellNum >= m_numChoices) return this;
     int8_t oldSel = m_selectedChoice;
     m_selectedChoice = _cellNum;
     if (m_shown) {

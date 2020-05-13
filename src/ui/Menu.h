@@ -23,15 +23,15 @@ public:
 
     void onCellLabelPrint(TFTHandler fn) { m_onCellLabelPrint = fn; };
 
-    int8_t getSelectedChoice();
-    Menu *setSelectedChoice(int8_t c);
+    int8_t getSelectedChoice(); // choice is 0-based
+    Menu *setSelectedChoice(int8_t c); // choice is 0-based
 
     Menu *setChoiceBorderProps(LineProperties &_props);
     Menu *setSelectedBorderProps(LineProperties &_props);
 
-    Menu *setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y);
-    Menu *setNumChoices(uint8_t _n) { return setNumChoices(_n, 1, _n); };
-    uint8_t getNumChoices() { return m_numChoices; }
+    Menu *setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y); // numChoices is 1-based
+    Menu *setNumChoices(uint8_t _n) { return setNumChoices(_n, 1, _n); }; // numChoices is 1-based
+    uint8_t getNumChoices() { return m_numChoices; } // numChoices is 1-based
 
     Menu *setLabelGetter(TLabel_Getter _lg) {
         m_labelGetter = _lg;
