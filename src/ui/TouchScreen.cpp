@@ -19,7 +19,7 @@ TouchControl *TouchScreen::checkForTouch() {
     if (m_tft->getTouch(&m_touchX, &m_touchY)) {
         for (m_touchCtlIter = m_listOfTouchControls.begin(); m_touchCtlIter != m_listOfTouchControls.end(); m_touchCtlIter++) {
             Window *ctlWin = (*m_touchCtlIter)->getWindow();
-            if (TFTUtils::contains((*ctlWin), m_touchX, m_touchY)) {
+            if ((*m_touchCtlIter)->isShown() && TFTUtils::contains((*ctlWin), m_touchX, m_touchY)) {
                 (*m_touchCtlIter)->handleTouch(m_touchX, m_touchY, true);
                 return (*m_touchCtlIter);
             }
