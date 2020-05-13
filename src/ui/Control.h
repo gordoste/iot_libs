@@ -13,6 +13,7 @@ protected:
     bool m_shown = false;
     LineProperties m_borderProps = {TFT_WHITE, 0};
     uint16_t m_backgroundColor = TFT_BLACK;
+    uint16_t m_fillColor = TFT_BLUE;
     uint8_t m_textFont = 1;
     uint8_t m_textAlign = TL_DATUM;
     uint8_t m_textPadding = 0;
@@ -28,6 +29,7 @@ public:
     Control &init(BasicLog *log, TFT_eSPI *tft, Window *win); // Use TouchScreen.addControl() instead of calling directly
     virtual void init() = 0;                                  // Initialise any variables in child class
     Window *getWindow() { return m_win; }
+    bool isShown() { return m_shown; }
     virtual void show() = 0;          // Pure virtual function that needs to be implemented in child
     virtual void update() { show(); } // Can be over-ridden
     virtual void hide();
@@ -35,6 +37,12 @@ public:
     uint16_t getBackgroundColor() { return m_backgroundColor; }
     Control &setBackgroundColor(uint16_t c) {
         m_backgroundColor = c;
+        return *this;
+    }
+
+    uint16_t getFillColor() { return m_fillColor; }
+    Control &setFillColor(uint16_t c) {
+        m_fillColor = c;
         return *this;
     }
 
@@ -76,6 +84,8 @@ protected:
     virtual void before_paintText(){};
     virtual void after_paintText(){};
     virtual void paintBorder();
+    virtual void paintFill();
+    void paintBorderAndFill() { paintBorder(); paintFill(); };
 };
 
 #endif // #ifndef _CONTROL_H

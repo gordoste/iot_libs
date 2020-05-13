@@ -149,6 +149,11 @@ void Control::paintBorder() {
     TFTUtils::drawBorderRect(m_tft, *m_win, TFT_BLACK, m_borderProps, false);
 }
 
+void Control::paintFill() {
+    if (!m_shown) return;
+    m_tft->fillRect(m_win->x + m_borderProps.width, m_win->y + m_borderProps.width, m_win->width - (2 * m_borderProps.width), m_win->height - (2 * m_borderProps.width), m_fillColor);
+}
+
 void Control::clear() {
     TFTUtils::fillWindow(m_tft, *m_win, m_backgroundColor);
 }
