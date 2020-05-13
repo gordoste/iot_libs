@@ -14,8 +14,8 @@ Menu *Menu::setSelectedBorderProps(LineProperties &_props) {
 
 Menu *Menu::setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y) {
     m_numChoices = _n;
-    m_xDivs = _x;
-    m_yDivs = _y;
+    m_xDivs = _x > 0 ? _x : 1;
+    m_yDivs = _y > 0 ? _y : 1;
     m_divX = m_win->width / m_xDivs; // size of each cell
     m_divY = m_win->height / m_yDivs;
     m_shown = false;
