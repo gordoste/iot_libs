@@ -56,8 +56,8 @@ Menu *Menu::setSelectedChoice(int8_t _cellNum) {
     int8_t oldSel = m_selectedChoice;
     m_selectedChoice = _cellNum;
     if (m_shown) {
-        drawCell(oldSel);           // Redraw previously selected cell
-        drawCell(m_selectedChoice); // Draw newly selected cell
+        if (oldSel != -1) drawCell(oldSel);           // Redraw previously selected cell
+        if (m_selectedChoice != -1) drawCell(m_selectedChoice); // Draw newly selected cell
     }
     return this;
 };
@@ -88,7 +88,7 @@ void Menu::drawLabel() {
     const char *label;
     if (m_labelGetter != NULL) {
         label = m_labelGetter(m_currentCellNum);
-        if (label != NULL) {
+        if (label != NULL && strlen(label) > 0) {
             if (m_onCellLabelPrint != NULL) {
                 m_onCellLabelPrint(m_tft);
             }

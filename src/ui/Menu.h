@@ -49,7 +49,7 @@ protected:
     uint32_t m_divX, m_divY;
     uint8_t m_currentDiv[2] = {0, 0}; // which cell are we drawing
     uint8_t m_xDivs, m_yDivs;
-    uint8_t m_selectedChoice;
+    int8_t m_selectedChoice;
     uint8_t m_numChoices;
     Window m_currentCell;
     uint8_t m_currentCellNum;
