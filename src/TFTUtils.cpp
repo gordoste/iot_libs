@@ -72,3 +72,7 @@ bool TFTUtils::overlaps(Window &w1, Window &w2) {
     }
     return false;
 }
+
+bool TFTUtils::contains(Window *w, uint16_t x, uint16_t y) {
+    return contains(*w, x, y);
+}
