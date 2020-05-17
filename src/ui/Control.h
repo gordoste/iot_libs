@@ -77,6 +77,8 @@ public:
     }
     LineProperties getBorderProperties() { return m_borderProps; }
 
+    void copyTextPropsFrom(Control &ctl); // Call all setTextXXX() functions and setFreeFont(), get the  values from the control passed
+
 protected:
     void clear();
     void updateTFTFont();     // Set the font on the TFT before drawing text

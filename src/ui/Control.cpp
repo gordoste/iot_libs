@@ -162,3 +162,11 @@ void Control::paintFill() {
 void Control::clear() {
     TFTUtils::fillWindow(m_tft, *m_win, m_backgroundColor);
 }
+
+void Control::copyTextPropsFrom(Control &ctl) {
+    m_gfxFont = ctl.getFreeFont();
+    m_textFont = ctl.getTextFont();
+    m_textColor = ctl.getTextColor();
+    m_textAlign = ctl.getTextAlign();
+    m_textPadding = ctl.getTextPadding();
+}
