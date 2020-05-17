@@ -8,7 +8,7 @@ void Label::show() {
     paintBG();
     m_shown = true;
     paintBorder();
-    paintFill();
+    if (m_fillColor != m_backgroundColor) paintFill();
     paintText(); // Necessary to initialise m_textWin
     update();
 }
