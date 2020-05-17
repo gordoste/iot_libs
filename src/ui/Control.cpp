@@ -145,7 +145,7 @@ void Control::paintText() {
 
 void Control::hide() {
     if (!m_shown) return;
-    clear();
+    paintBG();
     m_shown = false;
 }
 
@@ -159,7 +159,7 @@ void Control::paintFill() {
     m_tft->fillRect(m_win->x + m_borderProps.width, m_win->y + m_borderProps.width, m_win->width - (2 * m_borderProps.width), m_win->height - (2 * m_borderProps.width), m_fillColor);
 }
 
-void Control::clear() {
+void Control::paintBG() {
     TFTUtils::fillWindow(m_tft, *m_win, m_backgroundColor);
 }
 

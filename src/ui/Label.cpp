@@ -5,7 +5,7 @@ void Label::init() {
 }
 
 void Label::show() {
-    clear();
+    paintBG();
     m_shown = true;
     paintBorder();
     paintFill();

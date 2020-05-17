@@ -8,9 +8,9 @@ void PrintExtBox::init() {
     }
 }
 
-void PrintExtBox::clear() {
-    Control::clear();
-        m_tft->setCursor(m_win->x + m_borderProps.width + 1, m_win->y + m_borderProps.width + 1);
+void PrintExtBox::paintBG() {
+    Control::paintBG();
+    m_tft->setCursor(m_win->x + m_borderProps.width + 1, m_win->y + m_borderProps.width + 1);
     m_cursor = {m_tft->getCursorX(), m_tft->getCursorY()};
 }
 
@@ -28,14 +28,14 @@ size_t PrintExtBox::write(uint8_t ch) {
         m_tft->setCursor(m_cursor.x, m_cursor.y);
         m_tft->setTextColor(m_textColor);
         m_tft->write(ch);
-        if (m_tft->getCursorY() >= m_tft->height()) clear();
+        if (m_tft->getCursorY() >= m_tft->height()) paintBG();
         m_cursor = {m_tft->getCursorX(), m_tft->getCursorY()};
     }
     return 1; // Processed 1 character
 }
 
 void PrintExtBox::show() {
-    clear();
+    paintBG();
     m_shown = true;
     paintBorder();
 }

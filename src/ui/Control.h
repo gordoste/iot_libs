@@ -84,7 +84,7 @@ public:
     void copyTextPropsFrom(Control &ctl); // Call all setTextXXX() functions and setFreeFont(), get the  values from the control passed
 
 protected:
-    void clear();
+    void paintBG();
     void updateTFTFont();     // Set the font on the TFT before drawing text
     virtual void paintText(); // Display text. Can be over-ridden
     virtual void before_paintText(){};

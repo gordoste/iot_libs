@@ -11,7 +11,7 @@ void ProgressBar::setProgress(uint32_t progress, uint32_t total) {
 }
 
 void ProgressBar::show() {
-    clear();
+    paintBG();
     m_shown = true;
     paintBorder();
     paintText(); // Necessary to initialise m_textWin

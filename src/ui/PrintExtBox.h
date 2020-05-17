@@ -7,7 +7,7 @@
 class PrintExtBox : public PrintExt, public Control {
 public:
     void init();
-    void clear();
+    void paintBG();
     void show();
     Point &getCursor();
     void onWrite(TFTHandler fn) { onWriteFn = fn; };

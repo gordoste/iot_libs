@@ -5,7 +5,7 @@ void Button::init() {
 }
 
 void Button::show() {
-    clear();
+    paintBG();
     m_shown = true;
     paintBorder();
     paintFill();
