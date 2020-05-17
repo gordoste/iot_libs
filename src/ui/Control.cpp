@@ -94,7 +94,12 @@ void Control::paintText() {
         textPos.y = m_win->y;
     }
     m_tft->setTextDatum(m_textAlign);
-    m_textWin.width = m_tft->drawString(m_text, textPos.x, textPos.y);
+    if (m_text != NULL && strlen(m_text) > 0) {
+        m_textWin.width = m_tft->drawString(m_text, textPos.x, textPos.y);
+    }
+    else {
+        m_textWin.width = 0;
+    }
     m_textWin.height = m_tft->fontHeight();
     // Update textWindow with actual positions from TFT library
     switch (m_textAlign) {
