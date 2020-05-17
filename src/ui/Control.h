@@ -20,7 +20,7 @@ protected:
     uint16_t m_textColor = TFT_WHITE;
     uint16_t m_textWidth = 0;
     Window m_textWin = {0, 0, 0, 0}; // Area the text takes up
-    const char *m_text;
+    const char *m_text = NULL;
 #ifdef LOAD_GFXFF
     GFXfont *m_gfxFont = NULL;
 #endif
@@ -64,9 +64,13 @@ public:
     uint8_t getTextPadding() { return m_textPadding; }
 
 #ifdef LOAD_GFXFF
+    GFXfont *getFreeFont() { return m_gfxFont; }
     Control &setFreeFont(const GFXfont *f = NULL);
+    uint8_t getTextFont() { return m_textFont; }
     Control &setTextFont(uint8_t font);
 #else
+    uint8_t getFreeFont() { return m_textFont; }
+    uint8_t getTextFont() { return m_textFont; }
     Control &setFreeFont(uint8_t font);
     Control &setTextFont(uint8_t font);
 #endif

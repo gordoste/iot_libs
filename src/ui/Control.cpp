@@ -30,7 +30,7 @@ Control &Control::setFreeFont(uint8_t font) {
 }
 
 Control &Control::setTextFont(uint8_t f) {
-    textfont = (f > 0) ? f : 1; // Don't allow font 0
+    m_textFont = (f > 0) ? f : 1; // Don't allow font 0
     return *this;
 }
 #endif
