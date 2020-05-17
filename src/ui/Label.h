@@ -15,6 +15,8 @@ public:
 
     uint16_t getBorderColor() { return m_borderColor; }
     void setBorderColor(uint16_t c) { m_borderColor = c; }
+
+    uint16_t getMinWidth();
 };
 
 #endif // #ifndef _LABEL_H

@@ -18,3 +18,7 @@ void Label::update() {
     paintFill();
     paintText();
 }
+
+uint16_t Label::getMinWidth() {
+    return m_textWin.width + 2*m_textPadding + 2*m_borderProps.width;
+}
