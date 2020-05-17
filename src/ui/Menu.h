@@ -6,6 +6,7 @@
 #define MAX_CHOICES 20
 
 #include "TouchControl.h"
+#include "Label.h"
 
 typedef std::function<const char *(uint8_t cell_nr)> TLabel_Getter;
 typedef std::function<uint32_t(uint8_t cell_nr)> TColor_Getter;
@@ -20,8 +21,6 @@ public:
     void show();
     void showText(const char *str);
     bool isShown() { return m_shown; }
-
-    void onCellLabelPrint(TFTHandler fn) { m_onCellLabelPrint = fn; };
 
     int8_t getSelectedChoice(); // choice is 0-based
     Menu *setSelectedChoice(int8_t c); // choice is 0-based
@@ -43,7 +42,6 @@ public:
     }
 
 protected:
-    TFTHandler m_onCellLabelPrint = NULL;
     const char **m_cellLabels;
     const char *m_allChoices[MAX_CHOICES];
     uint32_t m_divX, m_divY;
@@ -61,11 +59,6 @@ protected:
 private:
     void getCell(uint8_t c);
     void drawCell(uint8_t _cellNum);
-    void drawLabel(uint8_t _cellNum);
-    void drawBorderAndFill(uint8_t _cellNum);
-    void drawCell();
-    void drawLabel();
-    void drawBorderAndFill();
 };
 
 #endif //#ifndef _MENU_H
