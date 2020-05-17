@@ -5,8 +5,8 @@
 
 #define MAX_CHOICES 20
 
-#include "TouchControl.h"
 #include "Label.h"
+#include "TouchControl.h"
 
 typedef std::function<const char *(uint8_t cell_nr)> TLabel_Getter;
 typedef std::function<uint32_t(uint8_t cell_nr)> TColor_Getter;
@@ -17,20 +17,20 @@ class Menu : public TouchControl {
     static uint32_t MENU_BLACK_GETTER(uint8_t _cellNum) { return TFT_BLACK; }
 
 public:
-    void init() {};
+    void init(){};
     void show();
     void showText(const char *str);
     bool isShown() { return m_shown; }
 
-    int8_t getSelectedChoice(); // choice is 0-based
+    int8_t getSelectedChoice();        // choice is 0-based
     Menu *setSelectedChoice(int8_t c); // choice is 0-based
 
     Menu *setChoiceBorderProps(LineProperties &_props);
     Menu *setSelectedBorderProps(LineProperties &_props);
 
-    Menu *setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y); // numChoices is 1-based
-    Menu *setNumChoices(uint8_t _n) { return setNumChoices(_n, 1, _n); }; // numChoices is 1-based
-    uint8_t getNumChoices() { return m_numChoices; } // numChoices is 1-based
+    Menu *setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y);              // Do this right before show() as it calculates cell sizes
+    Menu *setNumChoices(uint8_t _n) { return setNumChoices(_n, 1, _n); }; // Creates menu with 1 column
+    uint8_t getNumChoices() { return m_numChoices; }
 
     Menu *setLabelGetter(TLabel_Getter _lg) {
         m_labelGetter = _lg;
