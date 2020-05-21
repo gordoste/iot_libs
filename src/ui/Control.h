@@ -11,7 +11,7 @@ protected:
     Window *m_win;
     BasicLog *m_log;
     bool m_shown = false;
-    LineProperties m_borderProps = {TFT_WHITE, 0};
+    LineProperties m_borderProps = DefaultBorder;
     uint16_t m_backgroundColor = TFT_BLACK;
     uint16_t m_fillColor = TFT_BLUE;
     uint8_t m_textFont = 1;
