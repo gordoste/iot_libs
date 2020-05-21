@@ -1,10 +1,6 @@
 #ifndef _MENU_H
 #define _MENU_H
 
-#include "StringUtils.h"
-
-#define MAX_CHOICES 20
-
 #include "Label.h"
 #include "TouchControl.h"
 
@@ -19,13 +15,11 @@ class Menu : public TouchControl {
 public:
     void init(){};
     void show();
-    void showText(const char *str);
     bool isShown() { return m_shown; }
 
     int8_t getSelectedChoice();        // choice is 0-based
     Menu *setSelectedChoice(int8_t c); // choice is 0-based
 
-    Menu *setChoiceBorderProps(LineProperties &_props);
     Menu *setSelectedBorderProps(LineProperties &_props);
 
     Menu *setNumChoices(uint8_t _n, uint8_t _x, uint8_t _y);              // Do this right before show() as it calculates cell sizes
@@ -42,8 +36,6 @@ public:
     }
 
 protected:
-    const char **m_cellLabels;
-    const char *m_allChoices[MAX_CHOICES];
     uint32_t m_divX, m_divY;
     uint8_t m_currentDiv[2] = {0, 0}; // which cell are we drawing
     uint8_t m_xDivs, m_yDivs;
@@ -53,7 +45,6 @@ protected:
     uint8_t m_currentCellNum;
     TLabel_Getter m_labelGetter = DEFAULT_LABEL_GETTER;
     TColor_Getter m_fillColorGetter = MENU_BLACK_GETTER;
-    LineProperties m_choiceBorderProps = DefaultBorder;
     LineProperties m_selectedBorderProps = {TFT_RED, 3};
 
 private:

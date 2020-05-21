@@ -1,11 +1,5 @@
 #include "Menu.h"
 
-Menu *Menu::setChoiceBorderProps(LineProperties &_props) {
-    m_choiceBorderProps.color = _props.color;
-    m_choiceBorderProps.width = _props.width;
-    return this;
-}
-
 Menu *Menu::setSelectedBorderProps(LineProperties &_props) {
     m_selectedBorderProps.color = _props.color;
     m_selectedBorderProps.width = _props.width;
@@ -90,11 +84,7 @@ void Menu::drawCell(uint8_t _cellNum) {
         lbl.setBorderProperties(m_selectedBorderProps);
     }
     else {
-        lbl.setBorderProperties(m_choiceBorderProps);
+        lbl.setBorderProperties(m_borderProps);
     }
     lbl.show();
-}
-
-void Menu::showText(const char *str) {
-    m_log->log(str);
 }
