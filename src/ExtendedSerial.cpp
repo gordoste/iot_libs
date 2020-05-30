@@ -14,6 +14,24 @@ size_t ExtendedSerial::write(uint8_t ch) {
     return 1; // Processed 1 character
 }
 
+int ExtendedSerial::available() {
+    return Serial.available();
+}
+
+int ExtendedSerial::read() {
+    return Serial.read();
+}
+
+int ExtendedSerial::peek() {
+    return Serial.peek();
+}
+
+void ExtendedSerial::flush() {
+    Serial.flush();
+}
+
+size_t ExtendedSerial::println(const char c[]) { return Stream::println(c); }
+
 #ifdef OTA_ENABLED
 void ExtendedSerial::setOTA(EasyOTA *ota) { m_ota = ota; }
 
