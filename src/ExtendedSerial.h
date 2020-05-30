@@ -33,7 +33,6 @@ public:
     size_t print(unsigned long l, int b = DEC) { return Stream::print(l, b); };
     size_t print(double d, int b = 2) { return Stream::print(d, b); };
     size_t print(const Printable& s) { return Stream::print(s); };
-    size_t print(struct tm * timeinfo, const char * format = NULL) { return Stream::print(timeinfo, format); };
 
     size_t println(const __FlashStringHelper *s) { return Stream::println(s); };
     size_t println(const String &s) { return Stream::println(s); };
@@ -46,7 +45,6 @@ public:
     size_t println(unsigned long l, int b = DEC) { return Stream::println(l, b); };
     size_t println(double d, int b = 2) { return Stream::println(d, b); };
     size_t println(const Printable& s) { return Stream::println(s); };
-    size_t println(struct tm * timeinfo, const char * format = NULL) { return Stream::println(timeinfo, format); };
     size_t println(void) { return Stream::println(); };
     
 
