@@ -30,8 +30,6 @@ void ExtendedSerial::flush() {
     Serial.flush();
 }
 
-size_t ExtendedSerial::println(const char c[]) { return Stream::println(c); }
-
 #ifdef OTA_ENABLED
 void ExtendedSerial::setOTA(EasyOTA *ota) { m_ota = ota; }
 

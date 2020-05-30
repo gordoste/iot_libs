@@ -18,42 +18,36 @@ public:
     virtual int read();
     virtual int peek();
     virtual void flush();
-    // int getWriteError()
-    // {
-    //     return write_error;
-    // }
-    // void clearWriteError()
-    // {
-    //     setWriteError(0);
-    // }
 
-    // size_t printf(const char * format, ...)  __attribute__ ((format (printf, 2, 3)));
-    // size_t print(const __FlashStringHelper *);
-    // size_t print(const String &);
-    // size_t print(const char[]);
-    // size_t print(char);
-    // size_t print(unsigned char, int = DEC);
-    // size_t print(int, int = DEC);
-    // size_t print(unsigned int, int = DEC);
-    // size_t print(long, int = DEC);
-    // size_t print(unsigned long, int = DEC);
-    // size_t print(double, int = 2);
-    // size_t print(const Printable&);
-    // size_t print(struct tm * timeinfo, const char * format = NULL);
+    int getWriteError() { return Stream::getWriteError(); }
+    void clearWriteError() { Stream::clearWriteError(); }
 
-    // size_t println(const __FlashStringHelper *);
-    // size_t println(const String &s);
-    size_t println(const char[]);
-    // size_t println(char);
-    // size_t println(unsigned char, int = DEC);
-    // size_t println(int, int = DEC);
-    // size_t println(unsigned int, int = DEC);
-    // size_t println(long, int = DEC);
-    // size_t println(unsigned long, int = DEC);
-    // size_t println(double, int = 2);
-    // size_t println(const Printable&);
-    // size_t println(struct tm * timeinfo, const char * format = NULL);
-    // size_t println(void);
+    size_t print(const __FlashStringHelper *s) { return Stream::print(s); };
+    size_t print(const String &s) { return Stream::print(s); };
+    size_t print(const char c[]) { return Stream::print(c); };
+    size_t print(char c) { return Stream::print(c); };
+    size_t print(unsigned char c, int b = DEC) { return Stream::print(c, b); };
+    size_t print(int i, int b = DEC) { return Stream::print(i, b); };
+    size_t print(unsigned int i, int b = DEC) { return Stream::print(i, b); };
+    size_t print(long l, int b = DEC) { return Stream::print(l, b); };
+    size_t print(unsigned long l, int b = DEC) { return Stream::print(l, b); };
+    size_t print(double d, int b = 2) { return Stream::print(d, b); };
+    size_t print(const Printable& s) { return Stream::print(s); };
+    size_t print(struct tm * timeinfo, const char * format = NULL) { return Stream::print(timeinfo, format); };
+
+    size_t println(const __FlashStringHelper *s) { return Stream::println(s); };
+    size_t println(const String &s) { return Stream::println(s); };
+    size_t println(const char c[]) { return Stream::println(c); };
+    size_t println(char c) { return Stream::println(c); };
+    size_t println(unsigned char c, int b = DEC) { return Stream::println(c, b); };
+    size_t println(int i, int b = DEC) { return Stream::println(i, b); };
+    size_t println(unsigned int i, int b = DEC) { return Stream::println(i, b); };
+    size_t println(long l, int b = DEC) { return Stream::println(l, b); };
+    size_t println(unsigned long l, int b = DEC) { return Stream::println(l, b); };
+    size_t println(double d, int b = 2) { return Stream::println(d, b); };
+    size_t println(const Printable& s) { return Stream::println(s); };
+    size_t println(struct tm * timeinfo, const char * format = NULL) { return Stream::println(timeinfo, format); };
+    size_t println(void) { return Stream::println(); };
     
 
 #ifdef OTA_ENABLED
