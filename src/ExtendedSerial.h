@@ -4,14 +4,18 @@
 #include "PrintExt.h"
 #include "StringUtils.h"
 
+#ifndef SERIAL_PRINTF_BUF
+#define SERIAL_PRINTF_BUF 80 // define the tmp buffer size (override via compiler flag)
+#endif
+
 #ifdef OTA_ENABLED
 #define MAX_OTA_WAIT 500
 #include "JeVe_EasyOTA.h"
 #endif
 
-class ExtendedSerial : public PrintExt, public Stream {
+class ExtendedSerial : public Stream {
 public:
-    ExtendedSerial(){};
+    ExtendedSerial() {};
     void begin(int speed);
     virtual size_t write(uint8_t ch);
     virtual int available();
@@ -22,31 +26,14 @@ public:
     int getWriteError() { return Stream::getWriteError(); }
     void clearWriteError() { Stream::clearWriteError(); }
 
-    size_t print(const __FlashStringHelper *s) { return Stream::print(s); };
-    size_t print(const String &s) { return Stream::print(s); };
-    size_t print(const char c[]) { return Stream::print(c); };
-    size_t print(char c) { return Stream::print(c); };
-    size_t print(unsigned char c, int b = DEC) { return Stream::print(c, b); };
-    size_t print(int i, int b = DEC) { return Stream::print(i, b); };
-    size_t print(unsigned int i, int b = DEC) { return Stream::print(i, b); };
-    size_t print(long l, int b = DEC) { return Stream::print(l, b); };
-    size_t print(unsigned long l, int b = DEC) { return Stream::print(l, b); };
-    size_t print(double d, int b = 2) { return Stream::print(d, b); };
-    size_t print(const Printable& s) { return Stream::print(s); };
+    void vprintf(const char *fmt, va_list argp);
+    void printf(const char *fmt, ...);
+#ifdef F // check to see if F() macro is available
+    void printf(const __FlashStringHelper *fmt, ...);
+#endif
+    bool getAutoNewline() { return m_autoNewline; }
+    void setAutoNewline(bool autoNewline) { m_autoNewline = autoNewline; };
 
-    size_t println(const __FlashStringHelper *s) { return Stream::println(s); };
-    size_t println(const String &s) { return Stream::println(s); };
-    size_t println(const char c[]) { return Stream::println(c); };
-    size_t println(char c) { return Stream::println(c); };
-    size_t println(unsigned char c, int b = DEC) { return Stream::println(c, b); };
-    size_t println(int i, int b = DEC) { return Stream::println(i, b); };
-    size_t println(unsigned int i, int b = DEC) { return Stream::println(i, b); };
-    size_t println(long l, int b = DEC) { return Stream::println(l, b); };
-    size_t println(unsigned long l, int b = DEC) { return Stream::println(l, b); };
-    size_t println(double d, int b = 2) { return Stream::println(d, b); };
-    size_t println(const Printable& s) { return Stream::println(s); };
-    size_t println(void) { return Stream::println(); };
-    
 
 #ifdef OTA_ENABLED
     void setOTA(EasyOTA *ota);
@@ -54,6 +41,10 @@ public:
 
 private:
     EasyOTA *m_ota;
+    char m_buf[SERIAL_PRINTF_BUF];
+    bool m_autoNewline = true;
+    void autoNewline();
+
 #endif
 };
 
