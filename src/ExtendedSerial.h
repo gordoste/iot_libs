@@ -34,18 +34,20 @@ public:
     bool getAutoNewline() { return m_autoNewline; }
     void setAutoNewline(bool autoNewline) { m_autoNewline = autoNewline; };
 
+    char timedRead();
 
 #ifdef OTA_ENABLED
     void setOTA(EasyOTA *ota);
-    char timedRead();
+#endif
 
 private:
-    EasyOTA *m_ota;
     char m_buf[SERIAL_PRINTF_BUF];
     bool m_autoNewline = true;
     void autoNewline();
-
+#ifdef OTA_ENABLED
+    EasyOTA *m_ota;
 #endif
+
 };
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_EXTENDEDSERIAL)
