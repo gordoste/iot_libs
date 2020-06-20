@@ -37,4 +37,8 @@ private:
     bool m_useLogLabels = true;
 };
 
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BASICLOG)
+extern BasicLog Log;                                // Logging object
+#endif
+
 #endif // #ifndef _BASICLOG_H

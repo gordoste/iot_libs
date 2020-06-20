@@ -102,4 +102,9 @@ void BasicLog::error(const __FlashStringHelper *fmt, ...) {
     error((const char *)fmt, argp);
     va_end(argp);
 }
+
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BASICLOG)
+BasicLog Log;                                // Logging object
+#endif
+
 #endif
