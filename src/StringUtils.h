@@ -1,7 +1,8 @@
 #ifndef _STRINGUTILS_H
 #define _STRINGUTILS_H
 
-#include "Arduino.h"
+#include <Arduino.h>
+#include <IPAddress.h>
 
 #include <stdio.h>
 #include <string.h>
