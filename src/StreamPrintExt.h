@@ -9,6 +9,7 @@ public:
     void setStream(Stream *str);
     virtual size_t write(uint8_t ch);
     void setFlushOnNewline(bool flushOnNL);
+    void printfln(const char *fmt, ...);
 
 private:
     Stream *m_str = NULL;

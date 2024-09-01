@@ -11,3 +11,13 @@ size_t StreamPrintExt::write(uint8_t ch) {
 void StreamPrintExt::setFlushOnNewline(bool flushOnNL) {
     this->m_flushOnNL = flushOnNL;
 }
+
+void StreamPrintExt::printfln(const char *fmt, ...) {
+    va_list argp;
+    va_start(argp, fmt);
+    bool nlStore = getAutoNewline();
+    setAutoNewline(false);
+    vprintf(fmt, argp);
+    setAutoNewline(nlStore);
+    va_end(argp);
+}

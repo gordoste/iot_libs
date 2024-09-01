@@ -11,6 +11,7 @@
 class PrintExt : public Print {
 public:
     void printf(const char *fmt, ...);
+    virtual void printfln(const char *fmt, ...);
 #ifdef F // check to see if F() macro is available
     void printf(const __FlashStringHelper *fmt, ...);
 #endif

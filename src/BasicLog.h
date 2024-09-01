@@ -15,7 +15,6 @@ class BasicLog {
 public:
     BasicLog(){};
     void begin(PrintExt *p);
-    void setLogLevel(LogLevel lvl);
     void debug3(const char *fmt, ...);
     void debug2(const char *fmt, ...);
     void debug(const char *fmt, ...);
@@ -31,10 +30,10 @@ public:
     void error(const __FlashStringHelper *fmt, ...);
 #endif
 
-private:
-    PrintExt *m_dest;
-    LogLevel m_logLvl = LOG_LOG;
-    bool m_useLogLabels = true;
+    PrintExt *dest;
+    LogLevel level = LOG_LOG;
+
+    bool useLabels = true;
 };
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BASICLOG)
