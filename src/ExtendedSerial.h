@@ -8,11 +8,6 @@
 #define SERIAL_PRINTF_BUF 80 // define the tmp buffer size (override via compiler flag)
 #endif
 
-#ifdef OTA_ENABLED
-#define MAX_OTA_WAIT 500
-#include "JeVe_EasyOTA.h"
-#endif
-
 class ExtendedSerial : public Stream {
 public:
     ExtendedSerial() {};
@@ -36,18 +31,10 @@ public:
 
     char timedRead();
 
-#ifdef OTA_ENABLED
-    void setOTA(EasyOTA *ota);
-#endif
-
 private:
     char m_buf[SERIAL_PRINTF_BUF];
     bool m_autoNewline = true;
     void autoNewline();
-#ifdef OTA_ENABLED
-    EasyOTA *m_ota;
-#endif
-
 };
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_EXTENDEDSERIAL)

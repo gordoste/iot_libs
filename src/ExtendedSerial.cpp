@@ -75,21 +75,6 @@ void ExtendedSerial::autoNewline() {
     write('\n');
 }
 
-#ifdef OTA_ENABLED
-void ExtendedSerial::setOTA(EasyOTA *ota) { m_ota = ota; }
-
-char ExtendedSerial::timedRead() {
-    unsigned long lastOTA = 0;
-    while (!Serial.available()) {
-        if (millis() - lastOTA > MAX_OTA_WAIT) {
-            m_ota->loop();
-            lastOTA = millis();
-        }
-    }
-    return Serial.read();
-}
-#endif
-
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_EXTENDEDSERIAL)
 ExtendedSerial SerialExt;
 #endif
