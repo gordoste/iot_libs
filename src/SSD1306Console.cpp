@@ -3,7 +3,7 @@
 void SSD1306Console::begin(uint8_t i2cAddress) {
     ota_prevLine = -1;
     ota_progress_millis = 0;
-    memset(ota_progressBar, ' ', OTA_PROGRESS_BAR_SIZE);
+    memset(ota_progressBar, '-', OTA_PROGRESS_BAR_SIZE);
     ota_progressBar[0] = '[';
     ota_progressBar[OTA_PROGRESS_BAR_SIZE - 1] = ']';
     ota_progressBar[OTA_PROGRESS_BAR_SIZE] = '\0';
@@ -76,7 +76,7 @@ void SSD1306Console::onElegantOTAProgress(size_t current, size_t final) {
         static unsigned int prevProg = 100;
         unsigned int prog = current / (final / (OTA_PROGRESS_BAR_SIZE - 2));
         if (prog != prevProg) {
-            memset(ota_progressBar + sizeof(char), '=', prog);
+            memset(ota_progressBar + sizeof(char), '#', prog);
             showMessage(ota_progressBar, 2);
         }
     }
@@ -84,9 +84,11 @@ void SSD1306Console::onElegantOTAProgress(size_t current, size_t final) {
 
 void SSD1306Console::onElegantOTAEnd(bool success) {
     if (success) {
-        showMessage("OTA done.Reboot...", 1); 
+        memset(ota_progressBar + sizeof(char), '#', OTA_PROGRESS_BAR_SIZE-2);
+        showMessage(ota_progressBar, 2);
+        showMessage("OTA done. Reboot...", 3); 
     } else {
-        showMessage("OTA failed.", 1); 
+        showMessage("OTA failed.", 3); 
     }
 }
 
