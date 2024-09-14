@@ -34,6 +34,9 @@ public:
     LogLevel level = LOG_LOG;
 
     bool useLabels = true;
+
+private:
+    char flashBuf[256]; // buffer for reading strings from flash
 };
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BASICLOG)
