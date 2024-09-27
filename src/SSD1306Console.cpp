@@ -3,10 +3,6 @@
 void SSD1306Console::begin(uint8_t i2cAddress) {
     ota_prevLine = -1;
     ota_progress_millis = 0;
-    memset(ota_progressBar, '-', OTA_PROGRESS_BAR_SIZE);
-    ota_progressBar[0] = '[';
-    ota_progressBar[OTA_PROGRESS_BAR_SIZE - 1] = ']';
-    ota_progressBar[OTA_PROGRESS_BAR_SIZE] = '\0';
 
     m_oled.begin(&Adafruit128x64, 0x3C);
     m_oled.setFont(lcd5x7);
@@ -68,6 +64,10 @@ void SSD1306Console::showMessage(const String &message, int line) {
 
 void SSD1306Console::onElegantOTAStart() {
     showMessage("OTA starting...", 1);
+    memset(ota_progressBar, '-', OTA_PROGRESS_BAR_SIZE);
+    ota_progressBar[0] = '[';
+    ota_progressBar[OTA_PROGRESS_BAR_SIZE - 1] = ']';
+    ota_progressBar[OTA_PROGRESS_BAR_SIZE] = '\0';
 }
 
 void SSD1306Console::onElegantOTAProgress(size_t current, size_t final) {
